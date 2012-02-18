@@ -1,0 +1,24 @@
+This is JtoLaTeX, a compiler which writes LaTeX files using J evaluation
+for the hard bits.
+
+This project aims to be extensible, and to interface well with J.
+A natural corollary of this behavior will be a particularly powerful
+formatting language.
+
+The script jlatex can be run on a document, and will compile it to a
+.tex document and then run pdflatex on that.
+
+Documents can be written entirely in LaTeX. JtoLaTeX provides the
+following additional functionality:
+  A section enclosed in \J() will be executed as J to make a LaTeX math
+    mode display.
+  A section enclosed in \j() will form a LaTeX inline math mode section.
+
+Examples of code written for LaTeX mode in J can be found at
+http://www.jsoftware.com/jwiki/MarshallLochbaum/J%20to%20LaTeX.
+
+Functionality can be added easily in the opdata.ijs (convert native J
+operations to LaTeX) and funcs.ijs (Utilities for JtoLaTeX code) scripts.
+
+This version includes hard-coded filepaths in jlatex, and a path to the
+current folder at the top of jlatex.ijs.
