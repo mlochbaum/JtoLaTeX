@@ -1,0 +1,66 @@
+invmap =: [: ; ((;:@}. <@,. <@:("."0)@{.)~ i.&' ');._2
+NB. When parentheses are needed to apply f on g(...):
+NB.   0 Never
+NB.   1 (f >&prec g)   (for +-. Do not use otherwise).
+NB.   2 (f >:&prec g)*.(f ~: g)   (i.e. f is associative)
+NB.   3 f >:&prec g
+NB. Default is 0 or 00.
+NB. Note that - will be special-cased.
+paren_type_m =: (invmap 0 :0) boxtomapd (,0)
+2 -^.
+3 !
+)
+NB. left argument, right argument
+paren_type_d =: (invmap 0 :0) boxtomapd 0 0
+21 +
+31 -
+22 *+.*.
+33 =<><:>:
+30 ^|
+)
+
+NB. Order of operations table.
+NB. Form is (monad _ dyad) in each row.
+NB. Operations which are not listed have infinite binding power.
+NB. Usually they are paren-style, and not infix-style functions.
+ORDER =: ([: <@; 1 2(,.<)~&.>])"1 ([: <@;:;._1 '_'&,);._2 ]0 :0
+^ _ ^
+! _ 
+ _ *
+- _ +-
+ _ =~:<><:>:
+ _ *.+.
+)
+prec  =: (ORDER ((1 i.~ e.~&>) <) (;~ >))"0
+fprec =: #@args prec f
+
+NB. Operations to apply
+parsef =. [: ; (<@(;:@{. ,. <@}.)~ i.&' ');._2
+F1 =: parsef 0 :(0)
++  '\overline' texa y
+-  x,y
+*  '\frac' texa (; '||'&texs) y
+%  '\frac{1}' texa y
+^  'e^' texa y
+%: '\sqrt' texa y
+^. '\log' , ' '&,^:(ALPH e.~{.) y
+!  y,x
+|  '||' texs y
+(  '()' texs y
+)
+
+F2 =: parsef 0 :(0)
++-=<>  y1,x,y2
+<: y1,'\le ',y2
+>: y1,'\ge ',y2
+*  y1, ('\cdot '#~ -.(')'={:y1)+.({.y2)e.'(',ALPH), y2
+%  '\frac' texa y
+^  (y1,'^') texa1 y2
+%: ('\sqrt' texo y1) texa y2
+^. ('\log_' texa1 y1) , ' '&,^:(ALPH e.~{.) y2
+!  '\binom' texa |.y
+*. y1,'\lor ',y2
++. y1,'\land ',y2
+)
+
+OPS =: F1 ~.@,&:({."1) F2
