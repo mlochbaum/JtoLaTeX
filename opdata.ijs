@@ -24,12 +24,12 @@ NB. Form is (monad _ dyad) in each row.
 NB. Operations which are not listed have infinite binding power.
 NB. Usually they are paren-style, and not infix-style functions.
 ORDER =: ([: <@; 1 2(,.<)~&.>])"1 ([: <@;:;._1 '_'&,);._2 ]0 :0
-^ _ ^
-! _ 
- _ *
-- _ +-
- _ =~:<><:>:
  _ *.+.
+ _ =~:<><:>:
+- _ +-
+ _ *
+! _ 
+^ _ ^
 )
 prec  =: (ORDER ((1 i.~ e.~&>) <) (;~ >))"0
 fprec =: #@args prec f

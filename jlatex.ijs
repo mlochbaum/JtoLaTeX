@@ -76,7 +76,7 @@ mergesparens =: 3 :0
   groups =. (;:'\(') I.@E. y
   NB. TODO: better replacement algorithm!
   findgroup =. 4 :'(_1(|.!.1)1=[:+/\(={.))&.(x&|.) y'"0 _
-  y <@:;;.1~ (0&= +. 1,2~:/\]) +/ (* >:@i.@#) groups findgroup nest
+  y <@:(;:^:_1);.1~ (0&= +. 1,2~:/\]) +/ (* >:@i.@#) groups findgroup nest
 )
 mergeslash =: (<@:;/.~ i.@#+=&(<,'\'))^:_
 subs =: tofunc@:replacesyn@:mergeslash@:mergesparens&.;:
@@ -85,20 +85,21 @@ totree =: [:tonode@:". subs
 
 NB. =========================================================
 NB. Tree to LaTeX
-latex =: [: ; [:<@;@treetotex@, totree
-treetotex =: f`apply1`apply2 @. (#@args)  @:  (({.,$:^:(*@#)@}.)&.>) "0
+latex =: [: ; [:treetotex totree
+treetotex =: ({.@,@{.  applyf  $:^:(*@#)@}.)&.>
+applyf =: >@[`apply1`apply2 @. (#@])
 
 surround =: 1 :'({.u),,&({:u)'
 applywith =: surround(&.>)(@boxopen)(;@)(,hook)
 texa =: '{}'applywith
 texa1 =: texa`,@.((isstr*.1=#)@])
 texo =: '[]'applywith
-texs=: 4 :0 NB. surround with \left, \right if needed
+texs=: 4 :0 NB. surround with, using \left and \right if needed
   if. *./'\{}'e.y do. '\left',({.x),y,'\right',({:x)
   else. ({.x),y,({:x) end.
 )
 
-apply1 =: 4 :0&>/&.>
+apply1 =: 4 :0&>&{.
   if. L.x do. x`:0 y
   elseif. '\\'-:2{.x do. }.x,' ',y
   elseif. '\_'-:0 _1{x do. x texa y
@@ -107,7 +108,7 @@ apply1 =: 4 :0&>/&.>
   end.
 )
 
-apply2 =: ({. 4 :0 }.)&.>
+apply2 =: 4 :0
   'x y1 y2'=.x,y
   if. L.x do. y1 x`:0 y2
   elseif. '_'-:&,x do. (y1,x) texa1 y2
