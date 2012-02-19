@@ -4,9 +4,9 @@ load '/home/marshall/j701-user/jlatex/jlatex.ijs'
 name =: 2{::ARGV
 file =: 1!:1 <name
 nest =: +/\ 1 _1 0 {~ '()'i.file rplc '(.';'..'
-groups =: ; ('\j(';'\J(') I.@E.&.> <file
+groups =: ; (<'\J(') I.@E.&.> <file
 findgroup =: (3 + (i.{:)@:((2+[)|.]))"0 _   
-jtotex =: [: ('$','$',~])`('\[','\]',~])@.('jJ'i.1{[)@:latex ::] 2}.]
+jtotex =: [: latex ::] 2}.]
 r =: (groups ([,.findgroup) nest) (;jtotex)@({:@[{.{.@[}.])"1 _ file
 texname =. '.tex',~ ({.~i:&'.') name
 texname (1!:2<)~ file rplc r

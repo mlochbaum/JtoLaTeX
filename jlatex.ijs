@@ -25,7 +25,12 @@ f =: {.@>
 args =: }.@>
 on =: <@:,
 NB. Convert a noun to LaTeX
-k =: <"0@,@(<@":`strnum@.(NUM e.~{.@":)) NB. constant (no arguments)
+k =: 3 :0
+  if. 0<L. y do. <"0 y
+  elseif. NUM e.~{.@":@{.@, y do. <"0 strnum y
+  elseif. do. <"0 <@": y
+  end.
+)
 strnum =: strinf`strcomp`strrat`(8!:0)@.(1 i.~e.&(_ __),(~:+),(128=3!:0))"0
 strinf =: [:<('-'#~<&0),'\infty'"_
 strcomp =: [: ('+' ; (;&< ,&'i'&.>))&>/ strnum@+.
