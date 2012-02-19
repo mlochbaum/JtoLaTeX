@@ -8,11 +8,8 @@ formatting language.
 The script jlatex can be run on a document, and will compile it to a
 .tex document and then run pdflatex on that.
 
-Documents can be written entirely in LaTeX. JtoLaTeX provides the
-following additional functionality:
-  A section enclosed in \J() will be executed as J to make a LaTeX math
-    mode display.
-  A section enclosed in \j() will form a LaTeX inline math mode section.
+Documents are written in LaTeX, except that a section enclosed in
+\J() will execute as a J snippet, using the J function latex.
 
 Examples of code written for LaTeX mode in J can be found at
 http://www.jsoftware.com/jwiki/MarshallLochbaum/J%20to%20LaTeX.
