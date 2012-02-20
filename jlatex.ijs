@@ -107,6 +107,7 @@ texs=: 4 :0 NB. surround with, using \left and \right if needed
 apply1 =: 4 :0&>&{.
   if. L.x do. x`:0 y
   elseif. '\\'-:2{.x do. }.x,' ',y
+  elseif. '_'={:x do. x texa1 y
   elseif. '\_'-:0 _1{x do. x texa y
   elseif. do.
     ". F1 boxtomap  x
@@ -117,7 +118,7 @@ apply2 =: 4 :0
   'x y1 y2'=.x,y
   if. L.x do. y1 x`:0 y2
   elseif. '_'-:&,x do. (y1,x) texa1 y2
-  elseif. '_'={:x do. ('^' ,~ x texa y1) texa1 y2
+  elseif. '_'={:x do. ('^' ,~ x texa1 y1) texa1 y2
   elseif. '\'={.x do.
     if. '\'=1{x do. y1,' ',(}.x),' ',y2 else. x texa y end.
   elseif. do.

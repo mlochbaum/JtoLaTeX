@@ -1,6 +1,6 @@
 load 'plot'
 
-PLOT_CONFIG =: 'reset; visible 0;'
+PLOT_CONFIG =: 'visible 0;'
 
 insertplot =: 4 :0  NB. name insertplot plotdata
   pd PLOT_CONFIG
@@ -10,4 +10,4 @@ insertplot =: 4 :0  NB. name insertplot plotdata
 )
 
 NB. plotdata is (x values);(list of number,error pairs).
-errplot =: (insertplot ({.,(-/,{.,+/)@|:&.>@{:)) [ pd bind'type errorbar;'
+errplot =: (insertplot ({.,(-/,{.,:+/)@|:&.>@{:)) [ pd bind'type errorbar;'

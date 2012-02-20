@@ -53,7 +53,7 @@ F2 =: parsef 0 :(0)
 +-=<>  y1,x,y2
 <: y1,'\le ',y2
 >: y1,'\ge ',y2
-*  y1, ('\cdot '#~ -.(')'={:y1)+.({.y2)e.'(',ALPH), y2
+*  y1, ('\cdot '#~ NUM e.~{.y2), y2
 %  '\frac' texa y
 ^  (y1,'^') texa1 y2
 %: ('\sqrt' texo y1) texa y2
