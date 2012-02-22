@@ -25,6 +25,11 @@ tableform =: [:> [:([,(' \\',LF),])&.>/ ([,' & ',])&.>/"_1
 totable =: tableform masL
 mtypes =. ;:'matrix bmatrix Bmatrix pmatrix vmatrix Vmatrix'
 ".@:(],' =: (''',],''' inenv tableform) masL'"_)@> mtypes
+NB. Left argument is of the form 'rl|ll|lll|r', as in tabular.
+NB. Put \hlines where '|'s are; treat all non-space characters the same.
+splitrows =: (1 :0) asL
+  (((*+/\) '|'~:u-.SPACE) { (<'\hline')&,)&.toLines
+)
 
 mathinline =: ('$',,&'$') asL
 mathdisp =: ('\[',,&'\]') asL
