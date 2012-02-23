@@ -24,10 +24,10 @@ NB. Form is (monad _ dyad) in each row.
 NB. Operations which are not listed have infinite binding power.
 NB. Usually they are paren-style, and not infix-style functions.
 ORDER =: ([: <@; 1 2(,.<)~&.>])"1 ([: <@;:;._1 '_'&,);._2 ]0 :0
- _ *.+.
- _ =~:<><:>:
+  _ *.+.
+  _ =~:<><:>:
 - _ +-
- _ *
+  _ *
 ! _ 
 ^ _ ^
 )
@@ -35,6 +35,9 @@ prec  =: (ORDER ((1 i.~ e.~&>) <) (;~ >))"0
 fprec =: #@args prec f
 
 NB. Operations to apply
+NB. The statement after each operation will be executed
+NB. to get the result of computation.
+NB. x is the unboxed operation; y is the boxed argument list.
 parsef =. [: ; (<@(;:@{. ,. <@}.)~ i.&' ');._2
 F1 =: parsef 0 :(0)
 +  '\overline' texa y
@@ -49,6 +52,7 @@ F1 =: parsef 0 :(0)
 (  '()' texs y
 )
 
+NB. y -: y1;y2
 F2 =: parsef 0 :(0)
 +-=<>  y1,x,y2
 <: y1,'\le ',y2
@@ -64,3 +68,13 @@ F2 =: parsef 0 :(0)
 )
 
 OPS =: F1 ~.@,&:({."1) F2
+
+ALIAS1 =: ([: ({.,&(;:&.>)('((',],') : ',[,')'"_)&.>/) <;._1);._2 ]0 :0
+ >: 1&+
+ <: -&1
+ +: 2&*
+ -: %&2
+ *: ^&2
+ -. 1&-
+)
+alias =: rplc&(,ALIAS1)

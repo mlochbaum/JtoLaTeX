@@ -12,6 +12,7 @@ NUM =: '_0123456789'
 SPACE =: ' ',TAB,CRLF
 stripr =: +./\. onsp=.(@:(-.@e.&SPACE))(#~hook)
 stripl =: +./\ onsp
+surround =: 1 :'({.u),,&({:u)'
 
 load FILEPATH, 'opdata.ijs'
 
@@ -24,6 +25,7 @@ isnode =: 1<L.
 f =: {.@>
 args =: }.@>
 on =: <@:,
+
 NB. Convert a noun to LaTeX
 k =: 3 :0
   if. 0<L. y do. <"0 y
@@ -75,16 +77,13 @@ tofunc =: 3 :0&.>
   end.
 )
 
-replacesyn =: rplc&(<@;:;._1' >: (1&+) <: (-&1) +: (2&*) -: (%&2) *: (^&2)')
 mergesparens =: 3 :0
   nest =. +/\ 1 _1 0 {~ (;:'()')i.y
-  groups =. (;:'\(') I.@E. y
-  NB. TODO: better replacement algorithm!
-  findgroup =. 4 :'(_1(|.!.1)1=[:+/\(={.))&.(x&|.) y'"0 _
-  y <@:(;:^:_1);.1~ (0&= +. 1,2~:/\]) +/ (* >:@i.@#) groups findgroup nest
+  in_p =. {."1 ([`]@.(~:&{:*.{.@]))/\.&.|. nest ,.~ (;:'\(') E. y
+  y <@(;:^:_1);.2~ -. in_p
 )
 mergeslash =: (<@:;/.~ i.@#+=&(<,'\'))^:_
-subs =: tofunc@:replacesyn@:mergeslash@:mergesparens&.;:
+subs =: tofunc@:alias@:mergeslash@:mergesparens&.;:
 totree =: [:tonode@:". subs
 
 
@@ -94,7 +93,6 @@ latex =: [: ; [:treetotex totree
 treetotex =: ({.@,@{.  applyf  $:^:(*@#)@}.)&.>
 applyf =: >@[`apply1`apply2 @. (#@])
 
-surround =: 1 :'({.u),,&({:u)'
 applywith =: surround(&.>)(@boxopen)(;@)(,hook)
 texa =: '{}'applywith
 texa1 =: texa`,@.((isstr*.1=#)@])
@@ -108,9 +106,8 @@ apply1 =: 4 :0&>&{.
   if. L.x do. x`:0 y
   elseif. '\\'-:2{.x do. }.x,' ',y
   elseif. '_'={:x do. x texa1 y
-  elseif. '\_'-:0 _1{x do. x texa y
-  elseif. do.
-    ". F1 boxtomap  x
+  elseif. '\'={.x do. x texa y
+  elseif. do. ". F1 boxtomap  x
   end.
 )
 
@@ -119,10 +116,9 @@ apply2 =: 4 :0
   if. L.x do. y1 x`:0 y2
   elseif. '_'-:&,x do. (y1,x) texa1 y2
   elseif. '_'={:x do. ('^' ,~ x texa1 y1) texa1 y2
-  elseif. '\'={.x do.
-    if. '\'=1{x do. y1,' ',(}.x),' ',y2 else. x texa y end.
-  elseif. do.
-    ". F2 boxtomap  x
+  elseif. '\\'-:2{.x do. y1,' ',(}.x),' ',y2
+  elseif. '\'={.x do. x texa y
+  elseif. do. ". F2 boxtomap  x
   end.
 )
 
