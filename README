@@ -11,8 +11,8 @@ The script jlatex can be run on a document, and will compile it to a
 Documents are written in LaTeX, except that a section enclosed in
 \J() will execute as a J snippet, using the J function latex.
 
-Examples of code written for LaTeX mode in J can be found at
-http://www.jsoftware.com/jwiki/MarshallLochbaum/J%20to%20LaTeX.
+See doc/introduction for some (not very extensive) guidance and examples
+of JtoLaTeX code.
 
 Functionality can be added easily in the opdata.ijs (convert native J
 operations to LaTeX) and funcs.ijs (Utilities for JtoLaTeX code) scripts.

@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{listings}
+
+\lstset{
+  basicstyle=\ttfamily,
+  showstringspaces=false
+}
+\newcommand{\code}[1]{\lstinline`#1`}
+
+\J('li' =: ('\lstinline`',],'`'"_)asL)
+\J('lstlisting' =: '\begin{lstlisting}',LF,],LF,'\end{lstlisting}'"_)
+\J('show' =: lstlisting,LF,'\[','\]',~latex)
+
+\begin{document}
+The repository defines a compiler from LaTeX-mixed-with-J to LaTeX code.
+The script jlatex.ijs defines the verb \code{latex} to convert a J phrase
+into a well-formatted LaTeX math mode string.  This is then used in a
+compiler, which converts a file (I use .jtex as an extension, although
+it doesn't matter) into a .tex document and compiles that with pdflatex.
+Sections enclosed with \code{\J('\J()')} are replaced with their results
+from the \code{latex} function.
+
+The script allows J to function as it usually does, but makes changes to
+the way arithmetic operators work. It manipulates both J variables and
+LaTeX expressions. Each LaTeX expression is contained in a box, so it can
+be treated as an atom and used in arrays without concern for details.
+Functions modified to produce LaTeX results will convert their inputs
+to LaTeX before operating on them if necessary.
+
+The syntax is precisely J's, except for the special character
+\J(li '\'), which works as follows:
+\begin{itemize}
+  \item \J(li'\const'), where \code{const} is a number or string,
+    converts that value to a LaTeX expression.
+  \item \J(li'\fun'), where \code{fun} begins with an alphabetic,
+    gives a LaTeX function, which will apply as \J(li'\fun{y}')
+    or \J(li'\fun{x}{y}').
+  \item \J(li'\_val') gives a LaTeX literal \J(li'\val'), which is a noun.
+  \item \J(li'\\op') gives a verb which functions as an operator,
+    applying as \J(li'\op y') or \J(li'x \op y').
+  \item \J(li'\op'), where \code{b} starts with a special character or
+    ends with one of \code{.:}, gives the J function b.
+  \item \J(li'\(expr)') (with parentheses) interprets \code{(expr)}
+    as a J expression and does not change it.
+\end{itemize}
+
+Also, the new primitive \code{(.} forces parentheses around an expression.
+
+The code redefines arithmetic functions (the noun OPS gives the full list)
+to give LaTeX-formatted outputs. However, all other functions will work as
+they do in J, provided they are applied to arguments which have not yet
+been formatted in LaTeX (i.e. \code{i.4} will work fine, but \code{i.4+5}
+will give a domain error). Adverbs, conjunctions, hooks, and forks perform
+excellently, including rank.
+
+Names which are not defined at execution are changed into LaTeX literals.
+This allows the use of J variables, while making use of literals easier. 
+A name or string can always be enclosed in quotes if needed.
+One particular case is as the target of assignment---names must be quoted
+or J will return a domain error.
+
+Parentheses are added when necessary and usually only when necessary---
+the converter is aware of order of operations, associativity, and which
+operations need parentheses (i.e. \code{+} does, \code{^} needs them
+only on the left, and \code{\%} needs none).
+
+The following are a few examples of J code converted to LaTeX.
+\J(show '(2*a)%~(-b)\\pm\sqrt(b^2)-4*a*c')
+\J(show '+/ *: a,b,c')
+\J(show '\_pi * 2*(rh+r^2)')
+\J(show '(+1&\cfrac)/ (}:,+&\_ddots@{:) a_"0 i.5')
+\end{document}
