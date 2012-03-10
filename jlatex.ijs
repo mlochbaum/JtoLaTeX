@@ -59,7 +59,6 @@ tofunc =: 3 :0&.>
   to_on =. '((<',quote,')on,&tonode)'"_
   yy =. <y
   if. yy e. ;:'()=.=:' do. y
-  elseif. '(.'-:y do. '(''(''OP)'
   elseif. '\'={.y do.
     select. 1{y
       case. <"_1(ALPH,'\') do. if. '.:'e.~{:y do. }.y else. to_on y end.
