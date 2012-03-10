@@ -1,4 +1,4 @@
-FILEPATH =: '~user/jlatex/'
+FILEPATH =: '~user/JtoLaTeX/'
 
 NB. Utilities
 load 'strings'
