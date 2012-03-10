@@ -8,9 +8,10 @@
 }
 \newcommand{\code}[1]{\lstinline`#1`}
 
-\J('li' =: ('\lstinline`',],'`'"_)asL)
-\J('lstlisting' =: '\begin{lstlisting}',LF,],LF,'\end{lstlisting}'"_)
-\J('show' =: lstlisting,LF,'\[','\]',~latex)
+%listinline J environment
+\A(I_pjdoc_ =: '\lstinline`',],'`'"_)
+\A(lstlisting =: '\begin{lstlisting}',LF,],LF,'\end{lstlisting}'"_)
+\A(S_pjdoc_ =: lstlisting,LF,'\[','\]',~latex_base_)
 
 \begin{document}
 The repository defines a compiler from LaTeX-mixed-with-J to LaTeX code.
@@ -18,41 +19,59 @@ The script jlatex.ijs defines the verb \code{latex} to convert a J phrase
 into a well-formatted LaTeX math mode string.  This is then used in a
 compiler, which converts a file (I use .jtex as an extension, although
 it doesn't matter) into a .tex document and compiles that with pdflatex.
-Sections enclosed with \code{\J('\J()')} are replaced with their results
-from the \code{latex} function.
 
-The script allows J to function as it usually does, but makes changes to
-the way arithmetic operators work. It manipulates both J variables and
-LaTeX expressions. Each LaTeX expression is contained in a box, so it can
-be treated as an atom and used in arrays without concern for details.
+This compiler uses the system defined in jdoc.ijs, which replaces
+statements enclosed by \code{\?()} by the result of executing a specified
+J function on them. The mapping of names to functions is found in jdoc.ijs
+and is as follows:
+\begin{itemize}
+  \item J: Execute as J, and print the result with \code{":} .
+  \item L: Execute using the verb \code{latex}.
+  \item A: Execute as J, but return an empty string (used for assignment).
+  \item P: Execute using \code{pd}.
+\end{itemize}
+The argument strings are recursively expanded. Note that inside each,
+parentheses must be balanced (including, unfortunately, parentheses
+within quotes).
+These functions are used dynamically, which means you can change them
+merely by reassigning in the locale \code{_pjdoc_}. See this source for
+examples.
+
+The function \code{latex} allows J to function as it usually does, but
+makes changes to the way arithmetic operators work.
+It manipulates both J variables and LaTeX expressions.
+Each LaTeX expression is contained in a box, so it can be treated as
+an atom and used in arrays without concern for details.
 Functions modified to produce LaTeX results will convert their inputs
 to LaTeX before operating on them if necessary.
 
 The syntax is precisely J's, except for the special character
-\J(li '\'), which works as follows:
+\I(\), which works as follows:
 \begin{itemize}
-  \item \J(li'\const'), where \code{const} is a number or string,
+  \item \I(\const), where \code{const} is a number or string,
     converts that value to a LaTeX expression.
-  \item \J(li'\fun'), where \code{fun} begins with an alphabetic,
-    gives a LaTeX function, which will apply as \J(li'\fun{y}')
-    or \J(li'\fun{x}{y}').
-  \item \J(li'\_val') gives a LaTeX literal \J(li'\val'), which is a noun.
-  \item \J(li'\\op') gives a verb which functions as an operator,
-    applying as \J(li'\op y') or \J(li'x \op y').
-  \item \J(li'\op'), where \code{b} starts with a special character or
+  \item \I(\fun), where \code{fun} begins with an alphabetic,
+    gives a LaTeX function, which will apply as \I(\fun{y})
+    or \I(\fun{x}{y}).
+  \item \I(\_val) gives a LaTeX literal \I(\val), which is a noun.
+  \item \I(\\op) gives a verb which functions as an operator,
+    applying as \I(\op y) or \I(x \op y).
+  \item \I(\op), where \code{b} starts with a special character or
     ends with one of \code{.:}, gives the J function b.
-  \item \J(li'\(expr)') (with parentheses) interprets \code{(expr)}
+  \item \I(\(expr)) (with parentheses) interprets \code{(expr)}
     as a J expression and does not change it.
 \end{itemize}
 
-Also, the new primitive \code{(.} forces parentheses around an expression.
+Also, the new primitive \code{[.} forces parentheses around an expression.
 
-The code redefines arithmetic functions (the noun OPS gives the full list)
-to give LaTeX-formatted outputs. However, all other functions will work as
-they do in J, provided they are applied to arguments which have not yet
-been formatted in LaTeX (i.e. \code{i.4} will work fine, but \code{i.4+5}
-will give a domain error). Adverbs, conjunctions, hooks, and forks perform
-excellently, including rank.
+The code redefines arithmetic functions (the script opdata.ijs gives the
+full list) to give LaTeX-formatted outputs.
+However, all other functions will work as they do in J, provided they are
+applied to arguments which have not yet been formatted in LaTeX
+(i.e. \code{i.4} will work fine, but \code{i.4+5} will give a domain
+error).
+Adverbs, conjunctions, hooks, and forks perform excellently, including
+rank.
 
 Names which are not defined at execution are changed into LaTeX literals.
 This allows the use of J variables, while making use of literals easier. 
@@ -66,8 +85,8 @@ operations need parentheses (i.e. \code{+} does, \code{^} needs them
 only on the left, and \code{\%} needs none).
 
 The following are a few examples of J code converted to LaTeX.
-\J(show '(2*a)%~(-b)\\pm\sqrt(b^2)-4*a*c')
-\J(show '+/ *: a,b,c')
-\J(show '\_pi * 2*(rh+r^2)')
-\J(show '(+1&\cfrac)/ (}:,+&\_ddots@{:) a_"0 i.5')
+\S((2*a)%~(-b)\\pm\sqrt(b^2)-4*a*c)
+\S(+/ *: a,b,c)
+\S(\_pi * 2*(rh+r^2))
+\S((+1&\cfrac)/ (}:,+&\_ddots@{:) a_"0 i.5)
 \end{document}
