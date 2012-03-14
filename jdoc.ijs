@@ -1,16 +1,18 @@
 NB. FUNCS gives the available functions to be used on text.
 NB. each should take and return a string.
+execute =: ":@".
+assign =: ''[".
 cocurrent 'pjdoc'
-  J =: ":@".
-  A =: ''[".
+  J =: execute_base_
+  A =: assign_base_
   L =: latex_base_
-  P =: pd_z_
+  P =: pd_base_
 cocurrent 'base'
 
 NB. execute \?(expr) using the correct function for ? .
 ex_jdoc =: 3 :0
   'func data' =. (({.~;}.~) i.&'(') y
-  ('_pjdoc_',~}.func)~  process_jdoc }.}:data
+  , ('_pjdoc_',~}.func)~  process_jdoc }.}:data
 )
 
 NB. take the text of a document and process it.

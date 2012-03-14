@@ -2,7 +2,7 @@ load 'plot'
 
 PLOT_CONFIG =: 'visible 0;'
 
-insertplot =: 4 :0  NB. name insertplot plotdata
+includeplot =: 4 :0  NB. name insertplot plotdata
   pd PLOT_CONFIG
   pd y
   pd 'pdf ', PATH,x,'.pdf' ,' 280 200'

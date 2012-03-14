@@ -44,10 +44,10 @@ corr =: %:@corrsq   NB. correlation coefficient R
 slopeRU =: [:%: (2-~#"1@]) %~ <:@%@corrsq
 intRU =: slopeRU*mean&.:*:@[
 int_slope =: (1,.[)%.~]
-int_slopeWithU =: int_slope ([ ,. {.@[*]) intRU,slopeRU
+int_slopeWithU =: int_slope ([ ,. {:@[*]) intRU,slopeRU
 
 NB. All format commands output a double-boxed string. Careful!
-fmtExp =: ([,'\times10^{',],'}'"_)&":&.>&.>
+fmtExp =: ([,'\times10^{',],'}'"_)&(('-',}.)^:('_'={.))&":&.>&.>
 fmtDig =: <@:(":@[ 8!:0 ]) "0
 genFmtPrec =: (1 :0) ("0) NB. precision (expcutoff genFmtPrec) number
 :
