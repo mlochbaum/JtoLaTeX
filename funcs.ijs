@@ -31,6 +31,9 @@ splitrows =: (1 :0) asL
   (((*+/\) '|'~:u-.SPACE) { (<'\hline')&,)&.toLines
 )
 
+j=.(&,)(,hook)
+textlist =: ]`(,'and 'j&":&:>/)`(', 'j&":&:>/@}:,', and ',":@>@{:)@.(1 2 I.#)
+
 mathinline =: ('$',,&'$') asL
 mathdisp =: ('\[',,&'\]') asL
 
@@ -44,7 +47,7 @@ corr =: %:@corrsq   NB. correlation coefficient R
 slopeRU =: [:%: (2-~#"1@]) %~ <:@%@corrsq
 intRU =: slopeRU*mean&.:*:@[
 int_slope =: (1,.[)%.~]
-int_slopeWithU =: int_slope ([ ,. {:@[*]) intRU,slopeRU
+int_slopeWithU =: int_slope ([ ,. {:@[|@*]) intRU,slopeRU
 
 NB. All format commands output a double-boxed string. Careful!
 fmtExp =: ([,'\times10^{',],'}'"_)&(('-',}.)^:('_'={.))&":&.>&.>
@@ -59,7 +62,7 @@ fmtPrec =: 3 genFmtPrec
 fmtU =: _ genFmtPrec~ 1+1=(<.@%<.&.(10&^.))
 fmtWithU =: 3 :0 "1
   nd =. >:-/ exp=. 10<.@^. 'N U'=.y
-  if. 3>:|{.exp do. (nd fmtPrec N)([,'\pm',])&.>&.>(fmtU U)
+  if. 3>:|0.5-~{.exp do. (nd fmtPrec N)([,'\pm',])&.>&.>(fmtU U)
   else. (('(',,&')')&.>&.>fmtWithU y%10^{.exp) fmtExp {.exp end.
 )
 Umean =: ([: fmtWithU mean,stderr)"1
