@@ -6,8 +6,8 @@ includeplot =: 4 :0  NB. name insertplot plotdata
   pd PLOT_CONFIG
   pd y
   pd 'pdf ', PATH,x,'.pdf' ,' 280 200'
-  '\includegraphics[height=60mm]{',x,'.pdf}'
+  '\includegraphics[height=85mm]{',x,'.pdf}'
 )
 
 NB. plotdata is (x values);(list of number,error pairs).
-errplot =: (insertplot ({.,(-/,{.,:+/)@|:&.>@{:)) [ pd bind'type errorbar;'
+errplot =: (includeplot ({.,(-/,{.,:+/)@|:&.>@{:)) [ pd bind'type errorbar;'
