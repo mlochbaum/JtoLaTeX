@@ -59,7 +59,7 @@ genFmtPrec =: (1 :0) ("0) NB. precision (expcutoff genFmtPrec) number
   else. ((<:x) fmtDig y%10^exp) fmtExp toL exp end.
 )
 fmtPrec =: 3 genFmtPrec
-fmtU =: _ genFmtPrec~ 1+1=(<.@%<.&.(10&^.))
+fmtU =: _ genFmtPrec~ 1+1.95>(%<.&.(10&^.))
 fmtWithU =: 3 :0 "1
   nd =. >:-/ exp=. 10<.@^. 'N U'=.y
   if. 3>:|0.5-~{.exp do. (nd fmtPrec N)([,'\pm',])&.>&.>(fmtU U)
@@ -68,5 +68,10 @@ fmtWithU =: 3 :0 "1
 Umean =: ([: fmtWithU mean,stderr)"1
 
 unit =: (,&)asL("0)
+textrm =: '\textrm'&texa asL
+tunit =: (1 :'''\,\textrm{'',m,''}''')unit
 
 calcwithU =: 1 :'(u@{.([,|@-)u@(+/))"1'
+mcalcwithU =: 1 :0 ("2)
+  ({."1 y) (u@[ ([, +/&.:*:@:-~) u@:+"1) (*=@i.@#){:"1 y
+)

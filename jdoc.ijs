@@ -2,11 +2,13 @@ NB. FUNCS gives the available functions to be used on text.
 NB. each should take and return a string.
 execute =: ":@".
 assign =: ''[".
+getstring =: 3 :''''' [ (({.~i.&LF)y) =: (}.~>:@i.&LF)y'
 cocurrent 'pjdoc'
   J =: execute_base_
   A =: assign_base_
   L =: latex_base_
   P =: pd_base_
+  S =: getstring_base_
 cocurrent 'base'
 
 NB. execute \?(expr) using the correct function for ? .
