@@ -1,6 +1,6 @@
 NB. J functions which can be used in latex code
 
-load FILEPATH,'plot.ijs'
+load FILEPATH,'graphics.ijs'
 
 NB. Force conversion to latex entity.
 toL =: k^:(-.@isnode)
@@ -54,7 +54,7 @@ fmtExp =: ([,'\times10^{',],'}'"_)&(('-',}.)^:('_'={.))&":&.>&.>
 fmtDig =: <@:(":@[ 8!:0 ]) "0
 genFmtPrec =: (1 :0) ("0) NB. precision (expcutoff genFmtPrec) number
 :
-  exp =. 10 <.@^. y
+  exp =. 10 <.@^. |y
   if. u>:|exp-0.5 do. (0>.x->:exp) fmtDig y
   else. ((<:x) fmtDig y%10^exp) fmtExp toL exp end.
 )
