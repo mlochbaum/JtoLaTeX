@@ -1,7 +1,11 @@
 NB. FUNCS gives the available functions to be used on text.
 NB. each should take and return a string.
-execute =: ":@".
-assign =: ''[".
+onlines =: (;._2)(@:(,LF#~LF~:{:))
+lines =: <onlines :. unlines
+unlines =: ;@:(,&LF&.>) :. lines
+
+execute =: [:unlines <@":@".onlines
+assign =: ''[(''[".)onlines
 getstring =: 3 :''''' [ (({.~i.&LF)y) =: (}.~>:@i.&LF)y'
 cocurrent 'pjdoc'
   J =: execute_base_
