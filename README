@@ -8,8 +8,21 @@ formatting language.
 The script jlatex can be run on a document, and will compile it to a
 .tex document and then run pdflatex on that.
 
-Documents are written in LaTeX, except that a section enclosed in
-\J() will execute as a J snippet, using the J function latex.
+To install,
+$ cd ~user/JtoLaTeX
+$ git pull git://github.com/mlochbaum/JtoLaTeX.git
+# ln -s ./jlatex /usr/bin/jlatex
+where ~user is given by
+   jpath '~user'
+in J.
+
+Documents are written in LaTeX, except that a section enclosed in an
+escape like \L() will be executed according to the verb L_pjdoc_ in
+jdoc.ijs. In particular, L converts a J expression into an "equivalent"
+LaTeX expression, sending '2+^~<:5' to '2+(5-1)^{5-1}', for example.
+
+This allows you to do many J things in LaTeX, like computations, tables,
+and plots.
 
 See doc/introduction for some (not very extensive) guidance and examples
 of JtoLaTeX code.
@@ -17,5 +30,5 @@ of JtoLaTeX code.
 Functionality can be added easily in the opdata.ijs (convert native J
 operations to LaTeX) and funcs.ijs (Utilities for JtoLaTeX code) scripts.
 
-This version includes hard-coded filepaths in jlatex, and a path to the
-current folder at the top of jlatex.ijs.
+This version includes the filepath '~user/JtoLaTeX/' in jlatex.ijs and
+jlatex, so these must be changed if you want to install somewhere else.
