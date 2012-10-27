@@ -1,7 +1,5 @@
 NB. J functions which can be used in latex code
 
-load FILEPATH,'graphics.ijs'
-
 NB. Force conversion to latex entity.
 toL =: k^:(-.@isnode)
 

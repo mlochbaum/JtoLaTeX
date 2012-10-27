@@ -121,4 +121,5 @@ apply2 =: 4 :0
   end.
 )
 
-load FILEPATH,'funcs.ijs'
+NB. load all files in the extra directory
+load (< ,&.> [:{."1 (1!:0)@:(,&'*.ijs')) jpath FILEPATH,'extra/'
