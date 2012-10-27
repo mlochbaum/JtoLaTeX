@@ -4,13 +4,14 @@ onlines =: (;._2)(@:(,LF#~LF~:{:))
 lines =: <onlines :. unlines
 unlines =: ;@:(,&LF&.>) :. lines
 
-execute =: [:unlines <@":@".onlines
+execute =: [:}:@:unlines <@":@".onlines
 assign =: ''[(''[".)onlines
+latexlines =: [:}:@:unlines <@latex onlines
 getstring =: 3 :''''' [ (({.~i.&LF)y) =: (}.~>:@i.&LF)y'
 cocurrent 'pjdoc'
   J =: execute_base_
   A =: assign_base_
-  L =: latex_base_
+  L =: latexlines_base_
   P =: pd_base_
   S =: getstring_base_
 cocurrent 'base'
