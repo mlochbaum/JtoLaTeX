@@ -122,4 +122,4 @@ apply2 =: 4 :0
 )
 
 NB. load all files in the extra directory
-load (< ,&.> [:{."1 (1!:0)@:(,&'*.ijs')) jpath FILEPATH,'extra/'
+load (< ,&.> (<'core.ijs') ~.@, [:{."1 (1!:0)@:(,&'*.ijs')) jpath FILEPATH,'extra/'
