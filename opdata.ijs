@@ -33,7 +33,7 @@ ORDER =: ([: <@; 1 2(,.<)~&.>])"1 ([: <@;:;._1 '_'&,);._2 ]0 :0
 ^ _ ^
 )
 prec  =: (ORDER ((1 i.~ e.~&>) <) (;~ >))"0
-fprec =: #@args prec f
+fprec =: #@args prec func
 
 NB. Operations to apply
 NB. The statement after each operation will be executed

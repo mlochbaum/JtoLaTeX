@@ -22,7 +22,7 @@ NB. A tree node is of the form (< function , args)
 NB. A function is a boxed string (not character).
 NB. Each argument is a node, and there can be no arguments.
 isnode =: 1<L.
-f =: {.@>
+func =: {.@>
 args =: }.@>
 on =: <@:,
 
@@ -40,7 +40,7 @@ strrat =: ([:< [: (texa~>)/@|. '\frac';strnum@(2&x:))`(strnum@{.@(2&x:))@.(=<.)
 tonode =: k^:(-.@isnode)
 
 NB. Special casing for -
-inverth =: (((;:'+-')map(;:'-+'))@{.@] , ($:}.))&.>^:((;:'+-')e.~f@])"0
+inverth =: (((;:'+-')map(;:'-+'))@{.@] , ($:}.))&.>^:((;:'+-')e.~func@])"0
 invert =: (2&prec@[ inverth ])^:((<,'-')=[)"0
 
 OP =: (1 :',&.:> u') (1 :0) (&tonode) ("0)
@@ -50,7 +50,7 @@ OP =: (1 :',&.:> u') (1 :0) (&tonode) ("0)
 )
 reparen =: 4 :0"0 1
   ptype =. [:`paren_type_m`paren_type_d@.(#y) >x
-  ifparen =. ptype > (x=f y) + ((#y)prec x) (=+3*<) (fprec y)
+  ifparen =. ptype > (x=func y) + ((#y)prec x) (=+3*<) (fprec y)
   ifparen ((<,'(')on])^:(0~:#@args@])^:["0 y
 )
 
