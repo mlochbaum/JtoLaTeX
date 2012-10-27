@@ -27,8 +27,8 @@ and plots.
 See doc/introduction for some (not very extensive) guidance and examples
 of JtoLaTeX code.
 
-Functionality can be added easily in the opdata.ijs (convert native J
-operations to LaTeX) and funcs.ijs (Utilities for JtoLaTeX code) scripts.
+Handling of built-in functions can be configured in opdata.ijs, and
+functionality can be added by writing a script in the extra folder.
 
 This version includes the filepath '~user/JtoLaTeX/' in jlatex.ijs and
 jlatex, so these must be changed if you want to install somewhere else.
