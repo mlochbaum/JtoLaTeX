@@ -15,4 +15,8 @@ mathdisp =: ('\[',,&'\]') asL
 
 NB. non-printing assignment operator
 is =: 4 :'empty (>x) =: y'
-DeclareConst =: 4 :'empty (x)=:k ''\'',&.>y'~~"0 &: (;:^:(0=L.))
+
+declare =: (1 :('''EMPTY'';~''(>x)=:'',u')) (4 :)~~(&>) (&:(;:^:(0=L.)))
+DeclareConst =: 'k ''\'',y' declare
+DeclareFunc =: '(<''\'',y) on ,&tonode' declare
+DeclareMathOp =: '(<''\\'',y) on ,&tonode' declare

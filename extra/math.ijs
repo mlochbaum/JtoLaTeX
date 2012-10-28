@@ -5,7 +5,8 @@ NB. 'l^u' on the left and an argument on the right.
 mathop =: 1 :0
 k@:(('\',u,'_'),[) concat ]
 )
-3 :('(y)=:y mathop';'EMPTY')@> , ;:;._2 ]0 :0
+DeclareMathSumOp =: 'y mathop' declare
+DeclareMathSumOp (LF;' ') rplc~ 0 :0
 sum       prod       coprod
 bigoplus  bigotimes  bigodot
 bigcup    bigcap     biguplus
