@@ -14,6 +14,8 @@ cocurrent 'pjdoc'
   L =: latexlines_base_
   P =: pd_base_
   S =: getstring_base_
+  I =: '$','$',~latexlines_base_
+  D =: '\[','\]',~ latexlines_base_`({:,~latexlines_base_@:}:)@.(',.'e.~{:)
 cocurrent 'base'
 
 NB. execute \?(expr) using the correct function for ? .
