@@ -6,7 +6,7 @@ unlines =: ;@:(,&LF&.>) :. lines
 
 execute =: [:}:@:unlines <@":@".onlines
 assign =: ''[(''[".)onlines
-latexlines =: [:}:@:unlines <@latex onlines
+latexlines =: [:}:@:unlines <@latex onlines@:(rplc&(' ';~'\',LF))
 getstring =: 3 :''''' [ (({.~i.&LF)y) =: (}.~>:@i.&LF)y'
 cocurrent 'pjdoc'
   J =: execute_base_
