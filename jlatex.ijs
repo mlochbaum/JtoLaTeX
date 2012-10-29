@@ -40,7 +40,8 @@ strrat =: ([:< [: (texa~>)/@|. '\frac';strnum@(2&x:))`(strnum@{.@(2&x:))@.(=<.)
 tonode =: k^:(-.@isnode)
 
 NB. Special casing for -
-inverth =: (((;:'+-')map(;:'-+'))@{.@] , ($:}.))&.>^:((;:'+-')e.~func@])"0
+ispm =. ((;:'+-')e.~func) *. 2=#@args
+inverth =: (((;:'+-')map(;:'-+'))@{.@] , ($:}.))&.>^:(ispm f.@])"0
 invert =: (2&prec@[ inverth ])^:((<,'-')=[)"0
 
 OP =: (1 :',&.:> u') (1 :0) (&tonode) ("0)
