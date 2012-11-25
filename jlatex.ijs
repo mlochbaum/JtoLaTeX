@@ -73,7 +73,7 @@ tofunc =: 3 :0&.>
   elseif. yy e. '_';&,'__' do. y
   elseif. '_'={:y do. to_on y
   elseif. yy e. OPS do. ('(',quote,'OP)'"_) y
-  elseif. do. tok@quote^:(_1=4!:0@<) y
+  elseif. do. tok@quote^:(e.&(;:'x y k')@< +. _1=4!:0@<) y
   end.
 )
 
