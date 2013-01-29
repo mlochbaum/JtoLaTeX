@@ -9,9 +9,9 @@ The script jlatex can be run on a document, and will compile it to a
 .tex document and then run pdflatex on that.
 
 To install,
-$ cd ~user/JtoLaTeX
-$ git pull git://github.com/mlochbaum/JtoLaTeX.git
-# ln -s ./jlatex /usr/bin/jlatex
+$ cd ~user/
+$ git clone git://github.com/mlochbaum/JtoLaTeX.git
+# ln -s JtoLaTeX/jlatex /usr/bin/jlatex
 where ~user is given by
    jpath '~user'
 in J.
@@ -30,5 +30,5 @@ of JtoLaTeX code.
 Handling of built-in functions can be configured in opdata.ijs, and
 functionality can be added by writing a script in the extra folder.
 
-This version includes the filepath '~user/JtoLaTeX/' in jlatex.ijs and
-jlatex, so these must be changed if you want to install somewhere else.
+This version includes the filepath '~user/JtoLaTeX/' in the file jlatex,
+which must be changed if you want to install somewhere else.
