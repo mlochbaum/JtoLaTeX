@@ -1,5 +1,3 @@
-FILEPATH =: '~user/JtoLaTeX/'
-
 NB. Utilities
 load 'strings'
 map =: 2 :'m&i. { n"_'

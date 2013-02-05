@@ -3,11 +3,12 @@ NB. each should take and return a string.
 onlines =: (;._2)(@:(,LF#~LF~:{:))
 lines =: <onlines :. unlines
 unlines =: ;@:(,&LF&.>) :. lines
+aslines =: (<@:) onlines ((}:@:unlines)@:)
 
-execute =: [:}:@:unlines <@":@".onlines
+execute =: ":@". aslines
 assign =: ''[(''[".)onlines
-latexlines =: [:}:@:unlines <@latex onlines@:(rplc&(' ';~'\',LF))
-getstring =: 3 :''''' [ (({.~i.&LF)y) =: (}.~>:@i.&LF)y'
+latexlines =: latex aslines @: (rplc&(' ';~'\',LF))
+getstring =: ('' [ {.~ 3 :'x =: y' (}.~>:)) i.&LF
 cocurrent 'pjdoc'
   J =: execute_base_
   A =: assign_base_
@@ -28,15 +29,14 @@ NB. take the text of a document and process it.
 process_jdoc =: 3 :0
   getfuncs =. ('\',,&'(')&.> @: nl_pjdoc_
   nest =. +/\ 1 _1 0 {~ '()'i. text =. y
-  start =. <./ ; (getfuncs'') (1 i.~E.)&.> <text
   ptext =. ''
-  while. start<#text do.
+  while. (start =. <./ ; (getfuncs'') (1 i.~E.)&.> <text) < #text
+  do.
     ptext =. ptext,add ['add text'=.start ({.;}.) text
     nest =. start}.nest
     length =. >: nest ((i.{:)@:|.~ + ]) '('i.~ text
     ptext =. ptext,add ['add text'=.length (ex_jdoc@:{. ; }.) text
     nest =. length}.nest
-    start =. <./ ; (getfuncs'') (1 i.~E.)&.> <text
   end.
   ptext,text
 )
