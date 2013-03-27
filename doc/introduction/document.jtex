@@ -6,38 +6,44 @@
   basicstyle=\ttfamily,
   showstringspaces=false
 }
-\newcommand{\code}[1]{\lstinline`#1`}
 
-%listinline J environment
-\A(I_pjdoc_ =: '\lstinline`',],'`'"_)
-\A(lstlisting =: '\begin{lstlisting}',LF,],LF,'\end{lstlisting}'"_)
-\A(S_pjdoc_ =: lstlisting,LF,'\[','\]',~latex_base_)
+\A(
+  C_pjdoc_ =: '\lstinline`',],'`'"_
+  example =: ('lstlisting'&inenv , '\[','\]',~latex)^:(*@#) aslines
+  E_pjdoc_ =: example_base_
+)
 
 \begin{document}
 The repository defines a compiler from LaTeX-mixed-with-J to LaTeX code.
-The script jlatex.ijs defines the verb \code{latex} to convert a J phrase
+The script jlatex.ijs defines the verb \C(latex) to convert a J phrase
 into a well-formatted LaTeX math mode string.  This is then used in a
 compiler, which converts a file (I use .jtex as an extension, although
 it doesn't matter) into a .tex document and compiles that with pdflatex.
 
 This compiler uses the system defined in jdoc.ijs, which replaces
-statements enclosed by \code{\?()} by the result of executing a specified
-J function on them. The mapping of names to functions is found in jdoc.ijs
-and is as follows:
+statements enclosed by \C(\?()) for certain names \C(?) with the result of
+executing a specified J function on them. The mapping of names to
+functions is found in jdoc.ijs and is as follows:
 \begin{itemize}
-  \item J: Execute as J, and print the result with \code{":} .
-  \item L: Execute using the verb \code{latex}.
+  \item J: Execute as J, and print the result with \C(":) .
   \item A: Execute as J, but return an empty string (used for assignment).
-  \item P: Execute using \code{pd}.
+  \item L: Execute using the verb \C(latex).
+  \item P: Execute using \C(pd).
+  \item S: The first line is a name, and the rest is a string. Assign the
+           string to the name.
+  \item I: Like L, but place in inline math mode.
+  \item D: Place in display mode. Includes escapes for \C(.) and \C(,) at
+           the end of the expression so they will be used as punctuation.
 \end{itemize}
 The argument strings are recursively expanded. Note that inside each,
 parentheses must be balanced (including, unfortunately, parentheses
 within quotes).
 These functions are used dynamically, which means you can change them
-merely by reassigning in the locale \code{_pjdoc_}. See this source for
-examples.
+merely by reassigning in the locale \C(_pjdoc_). This document assigns
+\C(C) for an inline code snippet and \C(E) for examples (giving the code,
+then the result).
 
-The function \code{latex} allows J to function as it usually does, but
+The function \C(latex) allows J to function as it usually does, but
 makes changes to the way arithmetic operators work.
 It manipulates both J variables and LaTeX expressions.
 Each LaTeX expression is contained in a box, so it can be treated as
@@ -46,29 +52,29 @@ Functions modified to produce LaTeX results will convert their inputs
 to LaTeX before operating on them if necessary.
 
 The syntax is precisely J's, except for the special character
-\I(\), which works as follows:
+\C(\), which works as follows:
 \begin{itemize}
-  \item \I(\const), where \code{const} is a number or string,
+  \item \C(\const), where \C(const) is a number or string,
     converts that value to a LaTeX expression.
-  \item \I(\fun), where \code{fun} begins with an alphabetic,
-    gives a LaTeX function, which will apply as \I(\fun{y})
-    or \I(\fun{x}{y}).
-  \item \I(\_val) gives a LaTeX literal \I(\val), which is a noun.
-  \item \I(\\op) gives a verb which functions as an operator,
-    applying as \I(\op y) or \I(x \op y).
-  \item \I(\op), where \code{b} starts with a special character or
-    ends with one of \code{.:}, gives the J function b.
-  \item \I(\(expr)) (with parentheses) interprets \code{(expr)}
+  \item \C(\fun), where \C(fun) begins with an alphabetic,
+    gives a LaTeX function, which will apply as \C(\fun{y})
+    or \C(\fun{x}{y}).
+  \item \C(\_val) gives a LaTeX literal \C(\val), which is a noun.
+  \item \C(\\op) gives a verb which functions as an operator,
+    applying as \C(\op y) or \C(x \op y).
+  \item \C(\op), where \C(b) starts with a special character or
+    ends with one of \C(.:), gives the J function b.
+  \item \C(\(expr)) (with parentheses) interprets \C((expr))
     as a J expression and does not change it.
 \end{itemize}
 
-Also, the new primitive \code{[.} forces parentheses around an expression.
+Also, the new primitive \C([.) forces parentheses around an expression.
 
 The code redefines arithmetic functions (the script opdata.ijs gives the
 full list) to give LaTeX-formatted outputs.
 However, all other functions will work as they do in J, provided they are
 applied to arguments which have not yet been formatted in LaTeX
-(i.e. \code{i.4} will work fine, but \code{i.4+5} will give a domain
+(i.e. \C(i.4) will work fine, but \C(i.4+5) will give a domain
 error).
 Adverbs, conjunctions, hooks, and forks perform excellently, including
 rank.
@@ -81,12 +87,14 @@ or J will return a domain error.
 
 Parentheses are added when necessary and usually only when necessary---
 the converter is aware of order of operations, associativity, and which
-operations need parentheses (i.e. \code{+} does, \code{^} needs them
-only on the left, and \code{\%} needs none).
+operations need parentheses (i.e. \C(+) does, \C(^) needs them
+only on the left, and \C(%) needs none).
 
 The following are a few examples of J code converted to LaTeX.
-\S((2*a)%~(-b)\\pm\sqrt(b^2)-4*a*c)
-\S(+/ *: a,b,c)
-\S(\_pi * 2*(rh+r^2))
-\S((+1&\cfrac)/ (}:,+&\_ddots@{:) a_"0 i.5)
+\E(
+  (2*a)%~(-b)\\pm %:(b^2)-4*a*c
+  +/ *: a,b,c
+  \_pi * 2*rh+r^2
+  (+1&\cfrac)/ (}:,+&\_ddots@{:) a_"0 i.5
+)
 \end{document}

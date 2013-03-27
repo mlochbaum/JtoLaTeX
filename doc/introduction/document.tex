@@ -6,38 +6,40 @@
   basicstyle=\ttfamily,
   showstringspaces=false
 }
-\newcommand{\code}[1]{\lstinline`#1`}
-
-%listinline J environment
-
 
 
 
 \begin{document}
 The repository defines a compiler from LaTeX-mixed-with-J to LaTeX code.
-The script jlatex.ijs defines the verb \code{latex} to convert a J phrase
+The script jlatex.ijs defines the verb \lstinline`latex` to convert a J phrase
 into a well-formatted LaTeX math mode string.  This is then used in a
 compiler, which converts a file (I use .jtex as an extension, although
 it doesn't matter) into a .tex document and compiles that with pdflatex.
 
 This compiler uses the system defined in jdoc.ijs, which replaces
-statements enclosed by \code{\?()} by the result of executing a specified
-J function on them. The mapping of names to functions is found in jdoc.ijs
-and is as follows:
+statements enclosed by \lstinline`\?()` for certain names \lstinline`?` with the result of
+executing a specified J function on them. The mapping of names to
+functions is found in jdoc.ijs and is as follows:
 \begin{itemize}
-  \item J: Execute as J, and print the result with \code{":} .
-  \item L: Execute using the verb \code{latex}.
+  \item J: Execute as J, and print the result with \lstinline`":` .
   \item A: Execute as J, but return an empty string (used for assignment).
-  \item P: Execute using \code{pd}.
+  \item L: Execute using the verb \lstinline`latex`.
+  \item P: Execute using \lstinline`pd`.
+  \item S: The first line is a name, and the rest is a string. Assign the
+           string to the name.
+  \item I: Like L, but place in inline math mode.
+  \item D: Place in display mode. Includes escapes for \lstinline`.` and \lstinline`,` at
+           the end of the expression so they will be used as punctuation.
 \end{itemize}
 The argument strings are recursively expanded. Note that inside each,
 parentheses must be balanced (including, unfortunately, parentheses
 within quotes).
 These functions are used dynamically, which means you can change them
-merely by reassigning in the locale \code{_pjdoc_}. See this source for
-examples.
+merely by reassigning in the locale \lstinline`_pjdoc_`. This document assigns
+\lstinline`C` for an inline code snippet and \lstinline`E` for examples (giving the code,
+then the result).
 
-The function \code{latex} allows J to function as it usually does, but
+The function \lstinline`latex` allows J to function as it usually does, but
 makes changes to the way arithmetic operators work.
 It manipulates both J variables and LaTeX expressions.
 Each LaTeX expression is contained in a box, so it can be treated as
@@ -48,27 +50,27 @@ to LaTeX before operating on them if necessary.
 The syntax is precisely J's, except for the special character
 \lstinline`\`, which works as follows:
 \begin{itemize}
-  \item \lstinline`\const`, where \code{const} is a number or string,
+  \item \lstinline`\const`, where \lstinline`const` is a number or string,
     converts that value to a LaTeX expression.
-  \item \lstinline`\fun`, where \code{fun} begins with an alphabetic,
+  \item \lstinline`\fun`, where \lstinline`fun` begins with an alphabetic,
     gives a LaTeX function, which will apply as \lstinline`\fun{y}`
     or \lstinline`\fun{x}{y}`.
   \item \lstinline`\_val` gives a LaTeX literal \lstinline`\val`, which is a noun.
   \item \lstinline`\\op` gives a verb which functions as an operator,
     applying as \lstinline`\op y` or \lstinline`x \op y`.
-  \item \lstinline`\op`, where \code{b} starts with a special character or
-    ends with one of \code{.:}, gives the J function b.
-  \item \lstinline`\(expr)` (with parentheses) interprets \code{(expr)}
+  \item \lstinline`\op`, where \lstinline`b` starts with a special character or
+    ends with one of \lstinline`.:`, gives the J function b.
+  \item \lstinline`\(expr)` (with parentheses) interprets \lstinline`(expr)`
     as a J expression and does not change it.
 \end{itemize}
 
-Also, the new primitive \code{[.} forces parentheses around an expression.
+Also, the new primitive \lstinline`[.` forces parentheses around an expression.
 
 The code redefines arithmetic functions (the script opdata.ijs gives the
 full list) to give LaTeX-formatted outputs.
 However, all other functions will work as they do in J, provided they are
 applied to arguments which have not yet been formatted in LaTeX
-(i.e. \code{i.4} will work fine, but \code{i.4+5} will give a domain
+(i.e. \lstinline`i.4` will work fine, but \lstinline`i.4+5` will give a domain
 error).
 Adverbs, conjunctions, hooks, and forks perform excellently, including
 rank.
@@ -81,24 +83,25 @@ or J will return a domain error.
 
 Parentheses are added when necessary and usually only when necessary---
 the converter is aware of order of operations, associativity, and which
-operations need parentheses (i.e. \code{+} does, \code{^} needs them
-only on the left, and \code{\%} needs none).
+operations need parentheses (i.e. \lstinline`+` does, \lstinline`^` needs them
+only on the left, and \lstinline`%` needs none).
 
 The following are a few examples of J code converted to LaTeX.
+
 \begin{lstlisting}
-(2*a)%~(-b)\\pm\sqrt(b^2)-4*a*c
+    (2*a)%~(-b)\\pm %:(b^2)-4*a*c
 \end{lstlisting}
 \[\frac{-b \pm \sqrt{b^2-4 a c}}{2 a}\]
 \begin{lstlisting}
-+/ *: a,b,c
+    +/ *: a,b,c
 \end{lstlisting}
 \[a^2+b^2+c^2\]
 \begin{lstlisting}
-\_pi * 2*(rh+r^2)
+    \_pi * 2*rh+r^2
 \end{lstlisting}
 \[\pi\cdot 2 (rh+r^2)\]
 \begin{lstlisting}
-(+1&\cfrac)/ (}:,+&\_ddots@{:) a_"0 i.5
+    (+1&\cfrac)/ (}:,+&\_ddots@{:) a_"0 i.5
 \end{lstlisting}
 \[a_0+\cfrac{1}{a_1+\cfrac{1}{a_2+\cfrac{1}{a_3+\cfrac{1}{a_4+\ddots}}}}\]
 \end{document}
