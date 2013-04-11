@@ -29,7 +29,7 @@ on =: <@:,
 NB. Convert a noun to LaTeX
 toL =: 3 :0
   if. 0<L. y do. <"0 y
-  elseif. NUM e.~{.@":@{.@, y do. <"0 strnum y
+  elseif. 2 32 -.@e.~ 3!:0 y do. <"0 strnum y
   elseif. do. <"0 <@": y
   end.
 )

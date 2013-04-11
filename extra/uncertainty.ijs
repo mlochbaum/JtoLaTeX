@@ -27,8 +27,8 @@ fmtWithU =: 3 :0 "1
 )
 Umean =: ([: fmtWithU mean,stderr)"1
 
-unit =: (,&)asL("0)
-textrm =: '\textrm'&texa asL
+unit =: (,&)(&toString)("0)
+textrm =: '\textrm' texa toString
 tunit =: (1 :'''\,\textrm{'',m,''}''')unit
 
 calcwithU =: 1 :'(u@{.([,|@-)u@(+/))"1'
