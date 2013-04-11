@@ -8,9 +8,9 @@ inenv =: '\begin{',[,'}',LF,indent@],'\end{',[,'}',LF"_
 
 NB. Functions for handling lists and vectors.
 listwith =: (texs [:>([,',',])&.>/)"1
-rowvec =: '()' listwith treetotex
+rowvec =: '()' listwith toStrings
 tableform =: [:> [:([,(' \\',LF),])&.>/ ([,' & ',])&.>/"_1
-totable =: tableform@:treetotex
+totable =: tableform@:toStrings
 mtypes =. ;:'matrix bmatrix Bmatrix pmatrix vmatrix Vmatrix'
 ".@:(],' =: ''',],''' inenv totable'"_)@> mtypes
 NB. Left argument is of the form 'rl|ll|lll|r', as in tabular.

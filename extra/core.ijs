@@ -1,4 +1,5 @@
 toString =: ;@:treetotex@:tonode
+toStrings=: treetotex@:tonode"0
 
 NB. Make atomic
 atomize =: (<<,',') on tonode
