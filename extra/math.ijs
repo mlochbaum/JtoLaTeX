@@ -14,3 +14,5 @@ bigsqcup  bigvee     bigwedge
 int       oint       iint
 iiint     iiiint     idotsint
 )
+
+DeclareMathOp 'sin cos tan'
