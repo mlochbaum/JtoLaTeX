@@ -1,5 +1,5 @@
 NB. Make a list infinite by appending '\ldots'.
-inf =: (totree'\_ldots') ,~ toL
+inf =: (totree'\_ldots') ,~ toL1
 
 NB. Surround y with \begin{x} \end{x}
 toLines =: <;._2@:(,&LF^:(LF~:{:))  :.  (;@:(,&LF&.>))

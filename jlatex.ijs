@@ -25,7 +25,7 @@ args =: }.@>
 on =: <@:,
 
 NB. Convert a noun to LaTeX
-k =: 3 :0
+toL =: 3 :0
   if. 0<L. y do. <"0 y
   elseif. NUM e.~{.@":@{.@, y do. <"0 strnum y
   elseif. do. <"0 <@": y
@@ -35,7 +35,7 @@ strnum =: strinf`strcomp`strrat`(8!:0)@.(1 i.~e.&(_ __),(~:+),(128=3!:0))"0
 strinf =: [:<('-'#~<&0),'\infty'"_
 strcomp =: [: ('+' ; (;&< ,&'i'&.>))&>/ strnum@+.
 strrat =: ([:< ('-'#~<&0),[: (texa~>)/@|. '\frac';strnum@(2 x:|))`(strnum@{.@(2&x:))@.(=<.)
-tonode =: k^:(-.@isnode)
+tonode =: toL^:(-.@isnode)
 
 NB. Special casing for -
 ispm =. ((;:'+-')e.~func) *. 2=#@args
@@ -54,7 +54,7 @@ reparen =: 4 :0"0 1
 )
 
 tofunc =: 3 :0&.>
-  tok =. '(k ',,&')'
+  tok =. '(toL ',,&')'
   to_on =. '((<',quote,')on,&tonode)'"_
   yy =. <y
   if. yy e. ;:'()=.=:' do. y
@@ -71,7 +71,7 @@ tofunc =: 3 :0&.>
   elseif. yy e. '_';&,'__' do. y
   elseif. '_'={:y do. to_on y
   elseif. yy e. OPS do. ('(',quote,'OP)'"_) y
-  elseif. do. tok@quote^:(e.&(;:'x y k')@< +. _1=4!:0@<) y
+  elseif. do. tok@quote^:(e.&(;:'x y')@< +. _1=4!:0@<) y
   end.
 )
 
