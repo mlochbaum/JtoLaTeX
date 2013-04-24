@@ -8,7 +8,7 @@ aslines =: (<@:) onlines ((}:@:unlines)@:)
 execute =: ":@". aslines
 assign =: ''[(''[".)onlines
 latexlines =: latex aslines @: (rplc&(' ';~'\',LF))
-getstring =: ('' [ {.~ 3 :'x =: y' (}.~>:)) i.&LF
+getstring =: ('' [ {.~ 4 :'(x) =: y' (}.~>:)) i.&LF
 cocurrent 'pjdoc'
   J =: execute_base_
   A =: assign_base_
