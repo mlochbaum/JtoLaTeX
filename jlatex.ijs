@@ -45,9 +45,7 @@ inverth =: (((;:'+-')map(;:'-+'))@{.@] , ($:}.))&.>^:(ispm f.@])"0
 invert =: (2&prec@[ inverth ])^:((<,'-')=[)"0
 
 OP =: (1 :',&.:> u') (1 :0) (&tonode) ("0)
-  u on u reparen u invert y
-:
-  u on u reparen x,u invert y
+  u on u reparen (u&invert) : (, u&invert)
 )
 reparen =: 4 :0"0 1
   ptype =. [:`paren_type_m`paren_type_d@.(#y) >x
