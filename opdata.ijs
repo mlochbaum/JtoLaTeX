@@ -34,6 +34,7 @@ ORDER =: ([: <@; 1 2(,.<)~&.>])"1 ([: <@;:;._1 '_'&,);._2 ]0 :0
 ^ _ ^
 )
 prec  =: (ORDER ((1 i.~ e.~&>) <) (;~ >))"0
+args =. ]"0  NB. Enforce rank 0 on forward use of args
 fprec =: #@args prec func
 
 NB. Operations to apply
