@@ -12,12 +12,13 @@ rowvec =: '()' listwith toStrings
 tableform =: [:> [:([,(' \\',LF),])&.>/ ([,' & ',])&.>/"_1
 totable =: tableform@:toStrings
 mtypes =. ;:'matrix bmatrix Bmatrix pmatrix vmatrix Vmatrix'
-".@:(],' =: ''',],''' inenv totable'"_)@> mtypes
+".@:(],' =: [: toL ''',],''' inenv totable'"_)@> mtypes
 NB. Left argument is of the form 'rl|ll|lll|r', as in tabular.
 NB. Put \hlines where '|'s are; treat all non-space characters the same.
 splitrows =: 1 :0
   (((*+/\) '|'~:u-.SPACE) { (<'\hline')&,)&.toLines
 )
 
-j=.(&,)(,hook)
-textlist =: ]`(,'and 'j&":&:>/)`(', 'j&":&:>/@}:,', and ',":@>@{:)@.(1 2 I.#)
+NB. Turn a list of boxed strings into an English list (a single string).
+j=.(&,)(,hook)(&:>)
+textlist =: >`(' and 'j/)`(', 'j/@}: ', and 'j {:)@.(1 2 I.#)@:(":&.>)
