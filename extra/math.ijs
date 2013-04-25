@@ -2,7 +2,7 @@ of =: toL @: (>@{. , rowvec@}.) @: toStrings@:,&:tonode
 
 NB. analogous to \mathop ; returns an operator that takes a set of limits
 NB. 'l^u' on the left and an argument on the right.
-toBound =: '_^' texa1&.>(;@:) toStrings
+toBound =: ('_^'{.~#) texa1&.>(;@:) toStrings
 mathsumop =: 1 :0
 ((< '\\',u) on ,&tonode) : (([:< '\\',u,toBound@[) on ,&tonode@]) " 1 0
 )
