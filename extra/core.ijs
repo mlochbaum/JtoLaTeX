@@ -2,8 +2,7 @@ toString =: ;@:treetotex@:tonode
 toStrings=: treetotex@:tonode"0
 
 NB. Make atomic
-atomize =: (<<,',') on tonode
-concat =: atomize@:,
+concat =: (<<,',') on ,&tonode
 
 mathinline =: '$$'surround @: toString
 mathdisp =: ('\[',:'\]')surround @: toString
