@@ -6,8 +6,12 @@ includegraphics =: 4 :0 NB. name includegraphics rgbimg
 )
 
 PLOT_CONFIG =: 'visible 0;'
+PLOT_NUMBER =: 0
 
-includeplot =: 4 :0  NB. name includeplot plotdata
+includeplot =: 3 :0  NB. [filename] includeplot plotdata
+  ('plot',":PLOT_NUMBER) includeplot y
+  PLOT_NUMBER =: >:PLOT_NUMBER
+:
   pd PLOT_CONFIG
   pd y
   pd 'pdf ', PATH,x,'.pdf' ,' 280 200'
