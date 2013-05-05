@@ -82,7 +82,16 @@ mergesparens =: 3 :0
 )
 mergeslash =: (<@:;/.~ i.@#+=&(<,'\'))^:_
 subs =: tofunc@:alias@:mergeslash@:mergesparens&.;:
-totree =: [:tonode@:". subs
+totree =: ([:tonode@:". subs) :: (255 (13!:8@[) smoutput@:processerror)
+
+processerror =: 3 : 0
+err =. (}.~ 5+i.&LF) err1 =. 13!:12 ''
+i =. >: i.&' '@:(#~ 2>:/\0,' '&=) err
+mmy =. mergeslash@:mergesparens ;:y
+i =. i I.~ ([: +/\ +/@:~:&' '@>) tofunc@:alias mmy
+i =. (i{+/\0,+/@:~:&' '@> mmy) { ~.(i.@# + ' '&=) y
+(({.~ 5+i.&LF) err1) , i ({.,(4#' '),}.) y
+)
 
 
 NB. =========================================================
