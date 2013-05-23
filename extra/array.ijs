@@ -8,7 +8,7 @@ inenv =: '\begin{',[,'}',LF,indent@],'\end{',[,'}',LF"_
 
 NB. Functions for handling lists and vectors.
 listwith =: (texs [:>([,',',])&.>/)"1
-rowvec =: '()' listwith toStrings
+rowvec =: [: tonode '()' listwith toStrings
 tableform =: [:> [:([,(' \\',LF),])&.>/ ([,' & ',])&.>/"_1
 totable =: tableform@:toStrings
 mtypes =. ;:'matrix bmatrix Bmatrix pmatrix vmatrix Vmatrix'
