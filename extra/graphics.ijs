@@ -9,8 +9,8 @@ PLOT_CONFIG =: 'visible 0;'
 PLOT_NUMBER =: 0
 
 includeplot =: 3 :0  NB. [filename] includeplot plotdata
-  ('plot',":PLOT_NUMBER) includeplot y
   PLOT_NUMBER =: >:PLOT_NUMBER
+  ('plot',":<:PLOT_NUMBER) includeplot y
 :
   pd PLOT_CONFIG
   pd y
