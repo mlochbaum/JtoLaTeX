@@ -1,10 +1,10 @@
-toString =: ;@:treetotex@:tonode
+toString =: ;@:treetotex@:tonode :. toL
 toStrings=: treetotex@:tonode"0
 
 concat =: (<<,',') on ,&tonode
 
-mathinline =: '$$'surround @: toString
-mathdisp =: ('\[',:'\]')surround @: toString
+mathinline =: ('$$'surround) &.: toString
+mathdisp =: ('\[',:'\]')surround &.: toString
 
 NB. non-printing assignment operator
 is =: 4 :'empty (>x) =: y'
