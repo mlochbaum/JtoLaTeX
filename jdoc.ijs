@@ -3,7 +3,7 @@ NB. each should take and return a string.
 onlines =: (;._2)(@:(,LF#~LF~:{:))
 lines =: <onlines :. unlines
 unlines =: ;@:(,&LF&.>) :. lines
-aslines =: (<@:) onlines ((}:@:unlines)@:)
+aslines =: (<@:) onlines (-.&a: @:) ((}:@:unlines)@:)
 
 execute =: ":@". aslines
 assign =: ''[(''[".)onlines
