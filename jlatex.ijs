@@ -69,7 +69,7 @@ tofunc =: 3 :0&.>
       case. <"_1 '''',NUM do. tok }.y
       case. do. }.y
     end.
-  elseif. yy e. '_';&,'__' do. y
+  elseif. ({.y) e. NUM do. y
   elseif. '_'={:y do. to_on y
   elseif. yy e. OPS do. ('(',quote,'OP)'"_) y
   elseif. do. tok@quote^:(e.&(;:'x y')@< +. _1=4!:0@<) y
