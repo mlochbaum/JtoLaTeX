@@ -57,7 +57,8 @@ tofunc =: 3 :0&.>
   tok =. '(toL ',,&')'
   to_on =. '((<',quote,')on,&tonode)'"_
   yy =. <y
-  if. yy e. ;:'()=.=:' do. y
+  if. 0 < L.y do. ,>y
+  elseif. yy e. ;:'()=.=:' do. y
   elseif. '\'={.y do.
     select. 1{y
       case. <"_1(ALPH,'\') do. if. '.:'e.~{:y do. }.y else. to_on y end.
@@ -81,7 +82,8 @@ mergesparens =: 3 :0
   y <@(;:^:_1);.2~ -. in_p
 )
 mergeslash =: (<@:;/.~ i.@#+=&(<,'\'))^:_
-subs =: tofunc@:alias@:mergeslash@:mergesparens&.;:
+protectassign =: 2 <@]^:((;:'=.=:')e.~[)~/\ ,&a:
+subs =: tofunc@:alias@:protectassign@:mergeslash@:mergesparens&.;:
 totree =: ([:tonode@:". subs) :: (255 (13!:8@[) smoutput@:processerror)
 
 processerror =: 3 : 0
