@@ -7,8 +7,8 @@ indent =: '  '&,&.>&.toLines
 inenv =: '\begin{',[,'}',LF,indent@],'\end{',[,'}',LF"_
 
 NB. Functions for handling lists and vectors.
-listwith =: (texs [:>([,',',])&.>/)"1
-rowvec =: [: tonode '()' listwith toStrings
+listwith =: [: tonode ((texs [:>([,',',])&.>/)"1 toStrings)
+rowvec =: '()'&listwith
 tableform =: [:> [:([,(' \\',LF),])&.>/ ([,' & ',])&.>/"_1
 totable =: tableform@:toStrings
 mtypes =. ;:'matrix bmatrix Bmatrix pmatrix vmatrix Vmatrix'
