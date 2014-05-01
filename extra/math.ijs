@@ -24,3 +24,14 @@ DeclareMathOp (LF;' ') rplc~ 0 :0
 sin  cos  tan  sec  csc  cot
 sinh cosh tanh coth
 )
+
+mathsumop =: 1 :0
+(toL '\',u,' ')"_ : ((toL '\',u) ((<'_')on,&tonode) [) concat ]
+)
+DeclareMathLimOp =: 'y mathsumop' declare
+DeclareMathLimOp (LF;' ') rplc~ 0 :0
+lim
+max     min
+inf     sup
+liminf  limsup
+)
