@@ -105,7 +105,7 @@ texa =: '{}'applywith
 texa1 =: texa`,@.((isstr*.1=#)@])
 texo =: '[]'applywith
 texs=: 4 :0 NB. surround with, using \left and \right if needed
-  if. *./'\{}'e.y do. '\left',({.x),y,'\right',({:x)
+  if. (*./'\{}'e.y) +. +./'_^'e.y do. '\left',({.x),y,'\right',({:x)
   else. ({.x),y,({:x) end.
 )
 
