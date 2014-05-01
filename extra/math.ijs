@@ -1,4 +1,4 @@
-of =: toL @: (>@{. , rowvec@}.) @: toStrings@:,&:tonode
+of =: toL @: (>@{. , >@>@rowvec@}.) @: toStrings@:,&:tonode
 
 NB. analogous to \mathop ; returns an operator that takes a set of limits
 NB. 'l^u' on the left and an argument on the right.
