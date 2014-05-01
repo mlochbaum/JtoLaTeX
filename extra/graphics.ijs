@@ -13,7 +13,7 @@ includeplot =: 3 :0  NB. [filename] includeplot plotdata
   ('plot',":<:PLOT_NUMBER) includeplot y
 :
   pd PLOT_CONFIG
-  pd y
+  if. #y do. pd y end.
   pd 'pdf ', PATH,x,'.pdf' ,' 280 200'
   '\includegraphics[height=85mm]{',x,'.pdf}'
 )
