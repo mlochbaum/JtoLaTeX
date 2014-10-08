@@ -58,6 +58,7 @@ F1 =: parsef 0 :(0)
 NB. y -: y1;y2
 F2 =: parsef 0 :(0)
 +-=<>  y1,x,y2
+~: y1,'\neq ',y2
 <: y1,'\le ',y2
 >: y1,'\ge ',y2
 *  y1, ('\cdot'#~ NUM e.~{.y2), ' ',y2
