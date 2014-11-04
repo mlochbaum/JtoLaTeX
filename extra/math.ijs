@@ -7,6 +7,10 @@ mathsumop =: 1 :0
 ((< '\\',u) on ,&tonode) : (([:< '\\',u,toBound@[) on ,&tonode@]) " 1 0
 )
 
+DeclareOp (LF;' ') rplc~ 0 :0
+oplus     otimes
+)
+
 DeclareMathSumOp =: 'y mathsumop' declare
 DeclareMathSumOp (LF;' ') rplc~ 0 :0
 sum       prod       coprod
