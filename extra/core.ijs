@@ -1,6 +1,8 @@
 NB. Allow load/require to get files in extra/
-EXPATH =. FILEPATH,'extra/'
-extras =. (<'core') -.~ _4&}.&.> {."1 ]1!:0 jpath EXPATH,'*.ijs'
+P =. jpath EXPATH =. FILEPATH,'extra/'
+subdirs =. [: ,&'/'&.>@{."1 [: (#~'d'={.@>@{:"1) 1!:0
+d =. (, [: $:^:(*@#) ([: subdirs P,,&'*')&.>(;@:)) ,a:
+extras =. (<'core') -.~ ; (< (,_4&}.)&.> [:{."1[:1!:0 P,,&'*.ijs')&.> d
 Public_j_ =: Public_j_ ,~ (,. (EXPATH , ,&'.ijs')&.>) extras
 
 toString =: ;@:treetotex@:tonode :. toL
