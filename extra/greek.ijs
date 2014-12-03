@@ -1,4 +1,4 @@
-DeclareConst (, (toupper@{.,}.)&.>) ;: (LF;' ')rplc~ 0 :0
+DeclareConst (, (toupper@{.,}.)&.>) GREEK_CHAR =: ;: (LF;' ')rplc~ 0 :0
 alpha
 beta
 gamma
