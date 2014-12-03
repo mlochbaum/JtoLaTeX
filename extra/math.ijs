@@ -27,6 +27,8 @@ DeclareMathOp =: '(<''\\'',y) on tonode@:paren' declare
 DeclareMathOp (LF;' ') rplc~ 0 :0
 sin  cos  tan  sec  csc  cot
 sinh cosh tanh coth
+ker  hom  dim
+deg  det  gcd  exp
 )
 
 mathlimop =: 1 :0
