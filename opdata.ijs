@@ -7,8 +7,7 @@ NB.   3 f >:&prec g
 NB. Default is 0 or 00.
 NB. Note that - will be special-cased.
 paren_type_m =: (invmap 0 :0) boxtomapd (,0)
-1 -
-2 ^.
+1 -^.
 3 !
 )
 NB. left argument, right argument
