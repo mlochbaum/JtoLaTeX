@@ -1,3 +1,5 @@
+require 'array'
+
 of =: toL @: (>@{. , >@>@rowvec@}.) @: toStrings@:,&:tonode
 
 NB. analogous to \mathop ; returns an operator that takes a set of limits
