@@ -17,7 +17,7 @@ paren_type_d =: (invmap 0 :0) boxtomapd 0 0
 21 -
 22 *+.*.
 11 =~:<><:>:
-30 ^|
+30 ^
 )
 
 NB. Order of operations table.
@@ -90,7 +90,9 @@ ALIAS1 =: parsea1;._2 ]0 :(0)
 )
 jopen=:>
 jbox =:<
-ALIAS =: <@;:;._1;._2 ]0 :0
- [. ('('OP)
+jmodulus =:|
+ALIAS =: (1 ({.,&<}.) ;:);._2 ]0 :0
+[. ('('OP)
+|  (| : jmodulus)
 )
 alias =: rplc&(,ALIAS1,ALIAS)
