@@ -18,5 +18,14 @@ includeplot =: 3 :0  NB. [filename] includeplot plotdata
   '\includegraphics[height=85mm]{',x,'.pdf}'
 )
 
+NB. use with Q_pjdoc_ =: lazyplot_base_
+lazyplot =: 3 : 0
+'x y' =. (({.~ ; (}.~>:)) i.&LF) y
+if. -. fexist xpdf =. x,'.pdf' do.
+  x includeplot > {: <@". onlines y
+end.
+'\includegraphics[height=85mm]{',xpdf,'}'
+)
+
 NB. plotdata is (x values);(list of number,error pairs).
 errplot =: (includeplot ({.,(-/,{.,:+/)@|:&.>@{:)) [ pd bind'type errorbar;'
