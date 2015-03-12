@@ -12,12 +12,14 @@ and    ,
 quot   /
 by     \,
 comma  ,\quad 
-sst    \,\middle|\,
 )
 
 set =: ('\{';'\}')&texs &. toString
-st =: [:  (('\{\,';'\}') texs ,&'\,')&.toString  '\mid 'infix
+
+NB. st is "such that": (x st y) gives the set comprehension {x|y}.
+STTEMP =. '\{\,x\mid y\,\}' ; '\left\{\,x\,\middle|\,y\,\right\}'
+st =: ((STTEMP{::~+.&iftall) rplc 'x';[;'y';])&.toString
+
 'from' DeclareOp 'colon'
 'to' DeclareOp 'rightarrow'
 DeclareOp 'mapsto'
-sset =: ('\left\{\,',:'\,\right\}')surround &. toString
