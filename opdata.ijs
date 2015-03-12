@@ -66,8 +66,8 @@ F2 =: parsef 0 :(0)
 %: ('\sqrt' texo y1) texa y2
 ^. ('\log_' texa1 y1) , ' '&,^:(ALPH e.~{.) y2
 !  '\binom' texa |.y
-*. y1,'\lor ',y2
-+. y1,'\land ',y2
+*. y1,'\land ',y2
++. y1,'\lor ',y2
 )
 
 OPS =: F1 ~.@,&:({."1) F2
