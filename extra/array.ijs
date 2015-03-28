@@ -22,3 +22,6 @@ splitrows =: 1 :0
 NB. Turn a list of boxed strings into an English list (a single string).
 j=.(&,)(,hook)(&:>)
 textlist =: >`(' and 'j/)`(', 'j/@}: ', and 'j {:)@.(1 2 I.#)@:(":&.>)
+NB. Turn a list of objects into a list of inline math-mode expressions.
+NB. Use with \L().
+mathlist =: [: textlist <@toString@:mathinline"0
