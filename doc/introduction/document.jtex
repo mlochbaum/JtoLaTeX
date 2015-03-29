@@ -67,6 +67,7 @@ The syntax is precisely J's, except for the special character
     ends with one of \C(.:), gives the J function b.
   \item \C(\(expr)) (with parentheses) interprets \C((expr))
     as a J expression and does not change it.
+  \item Lines may be split by adding a \C(\) at the end of a line.
 \end{itemize}
 
 Also, the new primitive \C([.) forces parentheses around an expression.
