@@ -8,6 +8,7 @@
 }
 
 \A(
+  require 'array'
   C_pjdoc_ =: '\lstinline`',],'`'"_
   example =: ('lstlisting'&inenv , '\[','\]',~latex)^:(*@#) aslines
   E_pjdoc_ =: example_base_
