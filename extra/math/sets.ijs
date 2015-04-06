@@ -1,3 +1,5 @@
+require 'array'
+
 DeclareOp 'subset supset in setminus'
 DeclareFunc 'mathbb'
 DeclareSet =: 'mathbb y' declare
@@ -14,7 +16,7 @@ by     \,
 comma  ,\quad 
 )
 
-set =: ('\{';'\}')&texs &. toString
+set =: ('\{';'\}')&listwith
 
 NB. st is "such that": (x st y) gives the set comprehension {x|y}.
 STTEMP =. '\{\,x\mid y\,\}' ; '\left\{\,x\,\middle|\,y\,\right\}'
