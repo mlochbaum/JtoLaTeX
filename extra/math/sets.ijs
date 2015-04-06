@@ -1,4 +1,4 @@
-DeclareOp 'subset supset in'
+DeclareOp 'subset supset in setminus'
 DeclareFunc 'mathbb'
 DeclareSet =: 'mathbb y' declare
 (DeclareSet~ 2&#)@> ;: 'R Z N C'
