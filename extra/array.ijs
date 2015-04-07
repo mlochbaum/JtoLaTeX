@@ -3,8 +3,8 @@ list =: (([,',',])&.>/"1@:toStrings) : ((<@:texs >)"1 0 $:)
 rowvec =: '()'&list
 tableform =: [:> [:([,(' \\',LF),])&.>/ ([,' & ',])&.>/"_1
 totable =: tableform@:toStrings
-mtypes =. ;:'matrix bmatrix Bmatrix pmatrix vmatrix Vmatrix'
-".@:(],' =: [: toL ''',],''' inenv totable'"_)@> mtypes
+DeclareMatrix =: '[: toL y inenv totable'declare
+DeclareMatrix 'bBpvV' (] , ,&.>) <'matrix'
 NB. Left argument is of the form 'rl|ll|lll|r', as in tabular.
 NB. Put \hlines where '|'s are; treat all non-space characters the same.
 splitrows =: 1 :0
