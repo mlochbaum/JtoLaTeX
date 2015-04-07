@@ -3,7 +3,7 @@ DeclareConst 'dots'
 DOTS =: <"0 '\'&,&.> (, ,&.>&'cbmio' , ,~&.>&'lcvdi') <'dots'
 isdot =: e.&DOTS
 
-cdot =: [ , dots , ]
+cdot =: ,&dots : ([,dots,])
 
 'DTKEY DTVAL' =. ({. ; >@{:) |: ;:;._2 ]0 : 0
 +   b

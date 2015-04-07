@@ -1,6 +1,3 @@
-NB. Make a list infinite by appending '\ldots'.
-inf =: (totree'\_ldots') ,~ tonode
-
 toLines =: <;._2@:(,&LF^:(LF~:{:))  :.  (;@:(,&LF&.>))
 indent =: '  '&,&.>&.toLines
 NB. x is (env) or (env;arg).
