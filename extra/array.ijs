@@ -1,12 +1,3 @@
-toLines =: <;._2@:(,&LF^:(LF~:{:))  :.  (;@:(,&LF&.>))
-indent =: '  '&,&.>&.toLines
-NB. x is (env) or (env;arg).
-NB. Surround y with \begin{env}arg \end{env}
-inenv =: 4 : 0
-  x =. ('{}'surround&.>@{.,}.) boxopen x
-  '\begin',(;x),LF, (indent y), '\end',(>{.x),LF
-)
-
 NB. Functions for handling lists and vectors.
 list =: (([,',',])&.>/"1@:toStrings) : ((<@:texs >)"1 0 $:)
 rowvec =: '()'&list

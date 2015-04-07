@@ -11,7 +11,15 @@ toStrings=: treetotex@:tonode"0
 concat =: (<<,',') on ,&tonode
 
 mathinline =: ('$$'surround) &.: toString
-mathdisp =: ('\[',:'\]')surround &.: toString
+mathdisp =: ('\[';'\]')surround &.: toString
+
+NB. x is (env) or (env;arg).
+NB. Surround y with \begin{env}arg \end{env}
+toLines =: <;._2@:(,&LF^:(LF~:{:))  :.  (;@:(,&LF&.>))
+inenv =: 4 : 0
+  x =. ('{}'surround&.>@{.,}.) boxopen x
+  '\begin',(;x),LF, ('  '&,&.>&.toLines y), '\end',(>{.x),LF
+)
 
 NB. non-printing assignment operator
 is =: 4 :'empty (>x) =: y'
