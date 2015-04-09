@@ -63,14 +63,14 @@ tofunc =: 3 :0&.>
     select. 1{y
       case. <"_1(ALPH,'\') do. if. '.:'e.~{:y do. }.y else. to_on y end.
       case. '_' do.
-        if. 2=#y do. to_on }.y
+        if. 2=#y do. '(','"0)',~to_on }.y
         elseif. (2{y)e.NUM do. tok }.y
         elseif. do. tok quote ({.,2&}.)y end.
       case. <"_1 '''',NUM do. tok }.y
       case. do. }.y
     end.
   elseif. ({.y) e. NUM do. y
-  elseif. '_'={:y do. to_on y
+  elseif. '_'={:y do. '(','"0)',~to_on y
   elseif. yy e. OPS do. ('(',quote,'OP)'"_) y
   elseif. do. tok@quote^:(e.&(;:'x y')@< +. _1=4!:0@<) y
   end.
