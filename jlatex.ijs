@@ -90,9 +90,10 @@ processerror =: 3 : 0
 err =. (}.~ 5+i.&LF) err1 =. }:13!:12 ''
 i =. >: i.&' '@:(#~ 2>:/\0,' '&=) err
 mmy =. mergeslash@:mergesparens ;:y
-mmy1 =. tofunc@:alias@:protectassign mmy
+mmy1 =. tofunc@:alias mmyp =. protectassign mmy
 if. err -.@-:&(-.&(LF,' ')) ;mmy1 do. err1 return. end.
 i =. i I.~ ([: +/\ +/@:~:&' '@>) mmy1
+i =. i I.~ +/\ aliaslen mmyp
 i =. (i{+/\0,+/@:~:&' '@> mmy) { ~.(i.@# + ' '&=) y
 (({.~ 5+i.&LF) err1) , i ({.,(4#' '),}.) y
 )

@@ -95,3 +95,4 @@ ALIAS =: (1 ({.,&<}.) ;:);._2 ]0 :0
 |  (| : jmodulus)
 )
 alias =: rplc&(,ALIAS1,ALIAS)
+aliaslen =: ((_2 (,<@#)&>/\ ,ALIAS1,ALIAS) boxtomapd 1)@>
