@@ -95,8 +95,8 @@ only on the left, and \C(%) needs none).
 The following are a few examples of J code converted to LaTeX.
 \E(
   (2*a)%~(-b)\\pm %:(b^2)-4*a*c
-  +/ *: a,b,c
+  +/&.:*: 'xyz'
   \_pi * 2*rh+r^2
-  (+1&\cfrac)/ (}:,+&\_ddots@{:) a_"0 i.5
+  (+1&\cfrac)/ (}:,+&\_ddots@{:) a_ i.5
 )
 \end{document}
