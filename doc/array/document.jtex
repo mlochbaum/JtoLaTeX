@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{../tutorial}
+
+\A(require 'array ../common.ijs')
+
+\begin{document}
+The \C(array) addon offers a number of ways to present J arrays in LaTeX.
+
+\section{Lists}
+The verb \C(list) turns its right argument into a comma-separated list.
+The optional left argument gives a pair (or some other number; the first
+and last are used) of characters to surround the list with.
+It has the same form as the left argument to \C(texs).
+Like \C(texs), \C(list) will add \C(\left) and \C(\right) delimiters if
+the list is tall.
+\M(list \([: {."1 ({:,+/)^:(<6)) 0 1)
+\M(('\{';'\}') list e_ i.3)
+\M('[()' list %3 2  NB. trick to balance parentheses)
+For convenience, the function \C(rowvec) is defined as \C('()'&list).
+\M(rowvec 3#1)
+
+\section{Tables and matrices}
+The verb \C(totable) takes a two-dimensional array, and delimits it with
+\C(&) and \C(\\) so it can be used in LaTeX's \C(tabular) environment.
+A number of functions are defined using \C(totable) to give matrices with
+various delimiters.
+\M(bmatrix \_omega ^ \*/~ i.3)
+The following are the automatically-defined matrix commands; define a new
+one with \C(DeclareMatrix). Take a look at this table's source for an
+example of \C(tabular) in the wild.
+
+% arraystretch is needed to increase space between matrices.
+% But the matrices are also arrays, so we have to reset it within cells.
+\renewcommand{\arraystretch}{1.5}
+\begin{center}
+\L(('l|>{\renewcommand{\arraystretch}{1}}c';'.|') tabular \
+    ('Verb';'Output') , \
+    (code ; 4 :'mathinline x~ y'&\_cdot)@> 'bBpvV' (] , ,&.>) <'matrix')
+\end{center}
+\renewcommand{\arraystretch}{1}
+
+To create a LaTeX table, use the \C(tabular) verb. Much like the LaTeX
+environment \C(tabular) requires an argument specifying the column
+alignment, the J verb requires a left argument. J also allows (but does
+not require) a second such argument which specifies where to place lines
+vertically. This makes each \C('|') into an \C(\hline). This argument will
+automatically be extended if it is too short.
+\E(
+  label =: ([,' ',])&.> & ('cooperates';'defects') @>
+  'TAB'is ('';label A),.(label B), (list@,"0 |:) 1 3,:0 2
+  ('l|cc';'.|..') tabular TAB
+)
+
+\section{English lists}
+The \C(textlist) verb turns a list of boxed strings into an english phrase
+listing the items (with a serial comma, if applicable). This is useful if,
+for instance, you wish to list in a paper's text the objects given in a
+table, and keep that list consistent even if you change the order of those
+objects.
+\E(textlist ;:'aluminium plexiglass copper lead')
+
+\vspace{5pt}
+Similarly, \C(mathlist) lists a set of math-mode objects. Each is placed
+in inline math-mode separately.
+\E(mathlist G_2, F_4, E_]6 7 8)
+\end{document}
