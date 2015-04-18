@@ -11,7 +11,7 @@ toStrings=: treetotex@:tonode"0
 concat =: (<<,',') on ,&tonode
 
 mathinline =: ('$$'surround) &.: toString
-mathdisp =: ('\[';'\]')surround &.: toString
+mathdisp =: ('\[',:'\]')surround &.: toString
 
 NB. x is (env) or (env;arg).
 NB. Surround y with \begin{env}arg \end{env}
