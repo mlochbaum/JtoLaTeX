@@ -68,7 +68,7 @@ To include arguments, append a box to the left argument of \C(inenv) which
 gives the string of arguments. You must include the brackets.
 \E(
   fig =: (\caption 'a variable.') concat~ mathdisp x
-  ('figure';'[ht]') inenv toString fig
+  ('figure';'[ht]') inenv fig
 )
 
 The verbs \C(mathinline) and \C(mathdisp) place their arguments in inline

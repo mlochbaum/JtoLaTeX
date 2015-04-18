@@ -18,7 +18,8 @@ NB. Surround y with \begin{env}arg \end{env}
 toLines =: <;._2@:(,&LF^:(LF~:{:))  :.  (;@:(,&LF&.>))
 inenv =: 4 : 0
   x =. ('{}'surround&.>@{.,}.) boxopen x
-  '\begin',(;x),LF, ('  '&,(<@:);.2(;@:) (,LF-.{:) y), '\end',(>{.x),LF
+  y =. '  '&,(<@:);.2(;@:) (,LF-.{:) toString y
+  '\begin',(;x),LF, y, '\end',(>{.x),LF
 )
 
 NB. non-printing assignment operator
