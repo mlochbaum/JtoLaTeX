@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{listings}
+\usepackage{../tutorial}
+
+\A(require 'array ../common.ijs')
+
+\begin{document}
+Aside from the modifications to J's primitive verbs, most of the
+functionality of JtoLaTeX is kept in scripts located in the \C(extra)
+folder. Through some trickery with \C(Public_j_), these may be accessed
+just like a normal addon (see, for instance, the \C(require 'array')
+statement at the top of this document's source). However, functions in the
+\C(core) addon are loaded automatically.
+
+\section{Low-level verbs}
+These verbs should be avoided whenever possible. They deal with the string
+representation of a noun, not its actual structure. Using higher-level
+verbs instead means your code will adapt sensibly to different arguments;
+for instance parentheses will be resized with \C(\left) and \C(\right)
+when surrounding a tall expression.
+
+\C(toString) converts a LaTeX noun to a string, and its inverse, \C(toL),
+converts it back. \C(toStrings) converts each atom of its argument to a
+boxed string, and has no inverse.
+\M((\\rightarrow |.&.toString)  =`+/ *: c,a,b)
+
+\C(concat) combines the left and right arguments, with no intervening
+space.
+\M(\_var concat phi)
+
+\section{Defining things}
+A few verbs are included to make the assignments at the beginning of your
+document a bit easier (and more LaTeX-like).
+
+\C(is) takes a name on the left and a value on the right, assigns the
+given value to the name, and returns \C(i.0 0).
+
+\C(declare) is quite a helpful adverb, and a strong candidate for the
+most complicated line of code I've ever written. Given a string \C(u)
+which contains \C(y), \C(u declare) will produce a verb---call it
+\C(D)---which runs its right argument through this string as \C(y) and
+assigns the result to the left argument. Each argument to \C(D) must be
+either an array of boxes or a string, which will be turned into an array
+with (\C(;:)). If the left argument is omitted, the right is used for both
+name and value.
+\M(
+  DeclareFunc 'textbf'  NB. I'll get to this later...
+  DeclareBold =: 'textbf y' declare
+  DeclareBold 'one two'
+  'One Two' DeclareBold 'eleven twelve'
+  list one,two,One,Two
+)
+
+Three \C(declare)-style functions are provided in \C(core). Each works
+like a particular \C(\) construct from JtoLaTeX's syntax.
+\begin{itemize}
+  \item \C(DeclareConst): like \C(\_const)
+  \item \C(DeclareFunc): like \C(\func)
+  \item \C(DeclareOp): like \C(\\op)
+\end{itemize}
+For instance, the \C(DeclareFunc 'textbf') call above makes \C('textbf')
+into a function that applies with \C({}).
+
+\section{Environments}
+The \C(inenv) verb is a straightforward way to use LaTeX environments:
+\E('verbatim' inenv ":i.3)
+To include arguments, append a box to the left argument of \C(inenv) which
+gives the string of arguments. You must include the brackets.
+\E(
+  fig =: (\caption 'a variable.') concat~ mathdisp x
+  ('figure';'[ht]') inenv toString fig
+)
+
+The verbs \C(mathinline) and \C(mathdisp) place their arguments in inline
+and display math mode (with \C($$) and \C(\[\])), respectively.
+
+\end{document}
