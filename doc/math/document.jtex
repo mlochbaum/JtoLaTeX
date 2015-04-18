@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{../tutorial}
+
+\A(require '../common.ijs math greek math/func math/sets')
+
+\begin{document}
+The \C(math) addon provides ways of writing commonly used mathemetical
+operations and symbols. It is accompanied by scripts for more specific
+uses, currently \C(math/func.ijs) and \C(math/sets.ijs).
+
+The \C(array) addon is loaded by \C(math), and is used freely here. If you
+are unfamiliar with the array functions used here, see the array tutorial.
+
+\section{Greek}
+The \C(greek) addon defines nouns for all the greek letters. It is used
+here for convenience.
+\M(tau = +:pi)
+\E(mathlist Gamma, Delta, Theta)
+
+\section{Mathematical functions}
+The \C(of) verb is the same as math's function application. It can be
+applied to a list of arguments as well. \C(of) always parenthesizes the
+argument.
+\M(f of x)
+\M(f of r,theta,phi)
+\M((Gamma of %2) = -:%:pi)
+
+With large arguments functions use \C(\left) and \C(\right) for their
+delimiters, which results in poor spacing without further configuration.
+To avoid this, add the following lines (also found in \C(../tutorial.sty))
+to the preamble of your document:
+\begin{verbatim}
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{%
+    \mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+\end{verbatim}
+
+\section{Math operation types}
+Three new types of operations are defined by \C(math):
+
+\begin{center}\begin{tabular}{lccl}
+Style & \multicolumn{2}{c}{Example}    & Declaration \\ \hline
+Sum   & \C(sum) & \I(j sum a_j)        & \C(DeclareSumOp) \\
+Math  & \C(sin) & \I(sin theta)        & \C(DeclareMathOp) \\
+Limit & \C(lim) & \I((n to _) lim a_n) & \C(DeclareMathLimOp)
+\end{tabular}\end{center}
+
+In each case, nearly all operations built into LaTeX are remapped. If you
+need one that is not or have defined your own operation, simply use the
+appropriate declaration verb from the right column.
+
+\subsection{Sum-style operations}
+Functions like the big-sigma sum and integrals take a bound as a right
+argument and the term to sum (integrate, etc.) as the left argument.
+The bound has length up to two: the first element is the lower bound and
+the second is the upper bound. It may also be omitted entirely.
+\M((6%~*:pi) =~ (\_infty ,~ n=1) sum %*:n)
+\M(X = (alpha in A) bigcup U_ alpha)
+\M((int@:(*&dx) = +&C) ^x)
+
+\subsection{Math operations}
+Operations like \C(sin), \C(exp), and so on are defined as verbs. For
+these functions, the argument is parenthesized only if it is sufficiently
+complicated.
+\M(list sin"0 (+: , ] , -:) theta)
+\M(=`+/ dim"0 V ([ , ker@] , of~) T)
+\M((gcd = \+./) 42 98 126)
+
+Note that \C(log) is not defined---use \C(^.) instead!
+
+\subsection{Limit-style operations}
+Limit operations are monadic or take a single left argument, which is
+placed as a subscript.
+\M(min ((-~^) st in&RR) x)
+\M((n to _) lim | a %/@:\_ (,<:)n)
+
+\section{Miscellaneous}
+The operations \C(oplus) and \C(otimes) are declared in \C(math):
+\M(b ((a otimes [.@oplus) = oplus&[.&(a&otimes)) c)
+
+\section{Sets}
+The \C(math/sets) addon provides some standard set nouns as well as verbs
+for common ways to write sets.
+
+The following sets are predefined:
+\L('center'inenv 'lc' tabular (<@code,mathinline@:".)@,~"0 'NZQRCI')
+The \C(DeclareSet) verb is the declaration for a set, which is written in
+blackboard bold.
+\M(HH DeclareSet H
+   HH in~ list \1,i,j,k)
+
+To place a list of elements in a set, use the \C(set) verb. To invoke
+``set-builder notation,'' use \C(st). The left argument to \C(st) is the
+variable and the right argument is the predicate.
+\M(set \(/:~ , */&:>/ (^ i.@>:)&.>/ __ q: 12))
+\M((x in RR) st (*:x) < 2)
+
+The verbs \C(subset), \C(supset), \C(in), and \C(setminus) are defined as
+math operations.
+\M(iff DeclareOp 'Longleftrightarrow'
+   A (subset iff supset~ iff \_varnothing =~ setminus) B)
+
+An infix operation concatenates its two arguments with text in between.
+These operations use \C(concat) so they work directly on the text of their
+arguments. Define a new infix operation with \C(DeclareInfix).
+\M((x and y) in S)
+\M((quot p&*) ZZ)
+\M(int (^x) by dx  NB. space with \,)
+\M((a=3) comma (b=5)  NB. space with \quad)
+
+\section{Functions}
+The following functions are defined by \C(math/func).
+
+The operations \C(from) (as \C(colon)), \C(to) (as \C(rightarrow)), and
+\C(mapsto) are declared:
+\M((f from RR to RR)  comma  x mapsto *:x)
+
+Function composition is \C(o).
+\M(((f o g)&of = f of g&of) x)
+
+The inverse is \C(inv), and you can apply a function's inverse with
+\C(if) (that is, \C(of) with the first character changed).
+The function \C(res) gives the restriction of a function to a domain,
+using a vertical bar.
+\M(a (* * *&inv) b)
+\M(([.f res A) if x)
+
+The verbs \C(star) and \C(prime) do the obvious:
+\M((star H_1) of S^2)
+\M((prime^:2 f) of x)
+
+The conjunction \C(u commutes v) gives \C(u@:v = v&:u).
+\M(*: commutes % x)
+\M(z + commutes \\cdot w)
+\end{document}
