@@ -1,6 +1,5 @@
 \documentclass{article}
 \usepackage{amsmath, amssymb}
-\usepackage{listings}
 \usepackage{array}
 \usepackage{../tutorial}
 
