@@ -3,7 +3,7 @@ require 'array'
 DeclareOp 'subset supset in setminus'
 DeclareFunc 'mathbb'
 DeclareSet =: 'mathbb y' declare
-(DeclareSet~ 2&#)@> ;: 'R Z N C'
+(DeclareSet~ 2&#)@> ;: 'R Z N C Q'
 II =: '[]' list 0 1
 
 infix =: 1 :'concat u&concat'
