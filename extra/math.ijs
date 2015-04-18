@@ -23,7 +23,7 @@ int       oint       iint
 iiint     iiiint     idotsint
 )
 
-paren1=: ((<,'(')on tonode) ^: ((1<#@;:@":)`(0<#@args)@.(*@L.))
+paren1=: ((<,'(')on tonode) ^: ((1<#@;:@":)`((0<#@args)+.'('e.>@{.@>)@.(*@L.))
 paren =: paren1`rowvec@.(1~:#) @: (] :,)
 DeclareMathOp =: '(<''\\'',y) on tonode@:paren' declare
 DeclareMathOp (LF;' ') rplc~ 0 :0
