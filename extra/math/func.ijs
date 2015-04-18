@@ -1,4 +1,8 @@
+'from' DeclareOp 'colon'
+'to' DeclareOp 'rightarrow'
+DeclareOp 'mapsto'
 'o' DeclareOp 'circ'
+
 star =: ('^'OP)&'*'
 prime =: concat&''''
 inv =: ('^'OP)&_1
