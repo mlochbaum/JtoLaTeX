@@ -1,0 +1,12 @@
+\renewcommand*\ttdefault{pcr}
+\lstset{
+  basicstyle=\ttfamily,
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true
+}
+
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
