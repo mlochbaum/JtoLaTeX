@@ -1,18 +1,9 @@
 \documentclass{article}
 \usepackage{amsmath, amssymb}
 \usepackage{listings}
+\usepackage{../tutorial}
 
-\lstset{
-  basicstyle=\ttfamily,
-  showstringspaces=false
-}
-
-\A(
-  require 'array'
-  C_pjdoc_ =: '\lstinline`',],'`'"_
-  example =: ('lstlisting'&inenv , '\[','\]',~latex)^:(*@#) aslines
-  E_pjdoc_ =: example_base_
-)
+\A(require '../common.ijs')
 
 \begin{document}
 The repository defines a compiler from LaTeX-mixed-with-J to LaTeX code.
@@ -93,10 +84,8 @@ operations need parentheses (i.e. \C(+) does, \C(^) needs them
 only on the left, and \C(%) needs none).
 
 The following are a few examples of J code converted to LaTeX.
-\E(
-  (2*a)%~(-b)\\pm %:(b^2)-4*a*c
-  +/&.:*: 'xyz'
-  \_pi * 2*rh+r^2
-  (+1&\cfrac)/ (}:,+&\_ddots@{:) a_ i.5
-)
+\M((2*a)%~(-b)\\pm %:(b^2)-4*a*c)
+\M(+/&.:*: 'xyz')
+\M(\_pi * 2*rh+r^2)
+\M((+1&\cfrac)/ (}:,+&\_ddots@{:) a_ i.5)
 \end{document}

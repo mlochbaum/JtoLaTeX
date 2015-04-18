@@ -1,11 +1,7 @@
 \documentclass{article}
 \usepackage{amsmath, amssymb}
 \usepackage{listings}
-
-\lstset{
-  basicstyle=\ttfamily,
-  showstringspaces=false
-}
+\usepackage{../tutorial}
 
 
 
@@ -89,19 +85,19 @@ only on the left, and \lstinline`%` needs none).
 
 The following are a few examples of J code converted to LaTeX.
 \begin{lstlisting}
-    (2*a)%~(-b)\\pm %:(b^2)-4*a*c
+  (2*a)%~(-b)\\pm %:(b^2)-4*a*c
 \end{lstlisting}
 \[\frac{-b \pm \sqrt{b^2-4 a c}}{2 a}\]
 \begin{lstlisting}
-    +/&.:*: 'xyz'
+  +/&.:*: 'xyz'
 \end{lstlisting}
 \[\sqrt{x^2+y^2+z^2}\]
 \begin{lstlisting}
-    \_pi * 2*rh+r^2
+  \_pi * 2*rh+r^2
 \end{lstlisting}
 \[\pi\cdot 2 \left(rh+r^2\right)\]
 \begin{lstlisting}
-    (+1&\cfrac)/ (}:,+&\_ddots@{:) a_ i.5
+  (+1&\cfrac)/ (}:,+&\_ddots@{:) a_ i.5
 \end{lstlisting}
 \[a_0+\cfrac{1}{a_1+\cfrac{1}{a_2+\cfrac{1}{a_3+\cfrac{1}{a_4+\ddots}}}}\]
 \end{document}
