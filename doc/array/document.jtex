@@ -60,10 +60,8 @@ listing the items (with a serial comma, if applicable). This is useful if,
 for instance, you wish to list in a paper's text the objects given in a
 table, and keep that list consistent even if you change the order of those
 objects.
-\E(textlist ;:'aluminium plexiglass copper lead')
-
-\vspace{5pt}
 Similarly, \C(mathlist) lists a set of math-mode objects. Each is placed
 in inline math-mode separately.
+\E(textlist ;:'aluminium plexiglass copper lead')
 \E(mathlist G_2, F_4, E_]6 7 8)
 \end{document}
