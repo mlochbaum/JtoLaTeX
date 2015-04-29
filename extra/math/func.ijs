@@ -1,3 +1,5 @@
+require 'math'
+
 'from' DeclareOp 'colon'
 'to' DeclareOp 'rightarrow'
 DeclareOp 'mapsto'
