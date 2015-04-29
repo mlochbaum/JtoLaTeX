@@ -6,9 +6,6 @@ DeclareSet =: 'mathbb y' declare
 (DeclareSet~ 2&#)@> ;: 'R Z N C Q'
 II =: '[]' list 0 1
 
-infix =: 1 :'concat u&concat'
-
-DeclareInfix =: '(toL y) infix' declare
 (({. DeclareInfix&:< stripl@:}.)~ i.&' ');._2 ]0 : 0
 and    ,
 quot   /
