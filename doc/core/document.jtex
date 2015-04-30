@@ -28,6 +28,10 @@ boxed string, and has no inverse.
 space.
 \M(\_var concat phi)
 
+\C(infix) is an adverb that concatenates \C(x) and \C(y) with \C(u) in
+the middle.
+\M(\_Long 'right'infix arrow)
+
 \section{Defining things}
 A few verbs are included to make the assignments at the beginning of your
 document a bit easier (and more LaTeX-like).
@@ -60,6 +64,8 @@ like a particular \C(\) construct from JtoLaTeX's syntax.
 \end{itemize}
 For instance, the \C(DeclareFunc 'textbf') call above makes \C('textbf')
 into a function that applies with \C({}).
+Additionally, \C(DeclareInfix) declares as an infix operator using
+\C(infix).
 
 \section{Environments}
 The \C(inenv) verb is a straightforward way to use LaTeX environments:

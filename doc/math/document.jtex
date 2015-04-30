@@ -103,9 +103,7 @@ math operations.
 \M(iff DeclareOp 'Longleftrightarrow'
    A (subset iff supset~ iff \_varnothing =~ setminus) B)
 
-An infix operation concatenates its two arguments with text in between.
-These operations use \C(concat) so they work directly on the text of their
-arguments. Define a new infix operation with \C(DeclareInfix).
+The infix operations \C(and), \C(quot), \C(by), and \C(comma) are defined.
 \M((x and y) in S)
 \M((quot p&*) ZZ)
 \M(int (^x) by dx  NB. space with \,)
