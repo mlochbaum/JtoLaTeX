@@ -24,7 +24,7 @@ applied to a list of arguments as well. \C(of) always parenthesizes the
 argument.
 \M(f of x)
 \M(f of r,theta,phi)
-\M((Gamma of %2) = -:%:pi)
+\M((Gamma of 3r2) = -:%:pi)
 
 With large arguments functions use \C(\left) and \C(\right) for their
 delimiters, which results in poor spacing without further configuration.
@@ -53,8 +53,8 @@ need one that is not or have defined your own operation, simply use the
 appropriate declaration verb from the right column.
 
 \subsection{Sum-style operations}
-Functions like the big-sigma sum and integrals take a bound as a right
-argument and the term to sum (integrate, etc.) as the left argument.
+Functions like the big-sigma sum and integrals take a bound as a left
+argument and the term to sum (integrate, etc.) as the right argument.
 The bound has length up to two: the first element is the lower bound and
 the second is the upper bound. It may also be omitted entirely.
 \M((6%~*:pi) =~ (\_infty ,~ n=1) sum %*:n)
