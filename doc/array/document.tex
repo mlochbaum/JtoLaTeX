@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{array}
+\usepackage{../tutorial}
+
+
+
+\begin{document}
+The \lstinline`array` addon offers a number of ways to present J arrays in LaTeX.
+
+\section{Lists}
+The verb \lstinline`list` turns its right argument into a comma-separated list.
+The optional left argument gives a pair (or some other number; the first
+and last are used) of characters to surround the list with.
+It has the same form as the left argument to \lstinline`texs`.
+Like \lstinline`texs`, \lstinline`list` will add \lstinline`\left` and \lstinline`\right` delimiters if
+the list is tall.
+\begin{lstlisting}
+  list \([: {."1 ({:,+/)^:(<6)) 0 1
+\end{lstlisting}
+\[0,1,1,2,3,5\]
+\begin{lstlisting}
+  ('\{';'\}') list e_ i.3
+\end{lstlisting}
+\[\left\{e_0,e_1,e_2\right\}\]
+\begin{lstlisting}
+  '[()' list %3 2  NB. trick to balance parentheses
+\end{lstlisting}
+\[\left[\frac{1}{3},\frac{1}{2}\right)\]
+For convenience, the function \lstinline`rowvec` is defined as \lstinline`'()'&list`.
+\begin{lstlisting}
+  rowvec 3#1
+\end{lstlisting}
+\[(1,1,1)\]
+
+\section{Tables and matrices}
+The verb \lstinline`totable` takes a two-dimensional array, and delimits it with
+\lstinline`&` and \lstinline`\\` so it can be used in LaTeX's \lstinline`tabular` environment.
+A number of functions are defined using \lstinline`totable` to give matrices with
+various delimiters.
+\begin{lstlisting}
+  bmatrix \_omega ^ \*/~ i.3
+\end{lstlisting}
+\[\begin{bmatrix}
+  \omega^0 & \omega^0 & \omega^0 \\
+  \omega^0 & \omega^1 & \omega^2 \\
+  \omega^0 & \omega^2 & \omega^4
+\end{bmatrix}
+\]
+The following are the automatically-defined matrix commands; define a new
+one with \lstinline`DeclareMatrix`. Take a look at this table's source for an
+example of \lstinline`tabular` in the wild.
+
+% arraystretch is needed to increase space between matrices.
+% But the matrices are also arrays, so we have to reset it within cells.
+\renewcommand{\arraystretch}{1.5}
+\begin{center}
+\begin{tabular}{l|>{\renewcommand{\arraystretch}{1}}c}
+  Verb & Output \\
+  \hline
+  \lstinline`matrix` & $\begin{matrix}
+    \cdot
+  \end{matrix}
+  $ \\
+  \lstinline`bmatrix` & $\begin{bmatrix}
+    \cdot
+  \end{bmatrix}
+  $ \\
+  \lstinline`Bmatrix` & $\begin{Bmatrix}
+    \cdot
+  \end{Bmatrix}
+  $ \\
+  \lstinline`pmatrix` & $\begin{pmatrix}
+    \cdot
+  \end{pmatrix}
+  $ \\
+  \lstinline`vmatrix` & $\begin{vmatrix}
+    \cdot
+  \end{vmatrix}
+  $ \\
+  \lstinline`Vmatrix` & $\begin{Vmatrix}
+    \cdot
+  \end{Vmatrix}
+  $
+\end{tabular}
+
+\end{center}
+\renewcommand{\arraystretch}{1}
+
+To create a LaTeX table, use the \lstinline`tabular` verb. Much like the LaTeX
+environment \lstinline`tabular` requires an argument specifying the column
+alignment, the J verb requires a left argument. J also allows (but does
+not require) a second such argument which specifies where to place lines
+vertically. This makes each \lstinline`'|'` into an \lstinline`\hline`. This argument will
+automatically be extended if it is too short.
+\begin{lstlisting}
+  label =: ([,' ',])&.> & ('cooperates';'defects') @>
+  'TAB'is ('';label A),.(label B), (list@,"0 |:) 1 3,:0 2
+  ('l|cc';'.|..') tabular TAB
+\end{lstlisting}
+\begin{tabular}{l|cc}
+   & B cooperates & B defects \\
+  \hline
+  A cooperates & 1,1 & 3,0 \\
+  A defects & 0,3 & 2,2
+\end{tabular}
+
+
+\section{English lists}
+The \lstinline`textlist` verb turns a list of boxed strings into an english phrase
+listing the items (with a serial comma, if applicable). This is useful if,
+for instance, you wish to list in a paper's text the objects given in a
+table, and keep that list consistent even if you change the order of those
+objects.
+Similarly, \lstinline`mathlist` lists a set of math-mode objects. Each is placed
+in inline math-mode separately.
+\begin{lstlisting}
+  textlist ;:'aluminium plexiglass copper lead'
+\end{lstlisting}
+aluminium, plexiglass, copper, and lead
+\begin{lstlisting}
+  mathlist G_2, F_4, E_]6 7 8
+\end{lstlisting}
+$G_2$, $F_4$, $E_6$, $E_7$, and $E_8$
+\end{document}

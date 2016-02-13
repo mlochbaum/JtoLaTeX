@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{../tutorial}
+
+
+
+\begin{document}
+The \lstinline`math` addon provides ways of writing commonly used mathemetical
+operations and symbols. It is accompanied by scripts for more specific
+uses, currently \lstinline`math/func.ijs` and \lstinline`math/sets.ijs`.
+
+The \lstinline`array` addon is loaded by \lstinline`math`, and is used freely here. If you
+are unfamiliar with the array functions used here, see the array tutorial.
+
+\section{Greek}
+The \lstinline`greek` addon defines nouns for all the greek letters. It is used
+here for convenience.
+\begin{lstlisting}
+  tau = +:pi
+\end{lstlisting}
+\[\tau=2 \pi\]
+\begin{lstlisting}
+  mathlist Gamma, Delta, Theta
+\end{lstlisting}
+$\Gamma$, $\Delta$, and $\Theta$
+
+\section{Mathematical functions}
+The \lstinline`of` verb is the same as math's function application. It can be
+applied to a list of arguments as well. \lstinline`of` always parenthesizes the
+argument.
+\begin{lstlisting}
+  f of x
+\end{lstlisting}
+\[f(x)\]
+\begin{lstlisting}
+  f of r,theta,phi
+\end{lstlisting}
+\[f(r,\theta,\phi)\]
+\begin{lstlisting}
+  (Gamma of 3r2) = -:%:pi
+\end{lstlisting}
+\[\Gamma\left(\frac{3}{2}\right)=\frac{\sqrt{\pi}}{2}\]
+
+With large arguments functions use \lstinline`\left` and \lstinline`\right` for their
+delimiters, which results in poor spacing without further configuration.
+To avoid this, add the following lines (also found in \lstinline`../tutorial.sty`)
+to the preamble of your document:
+\begin{verbatim}
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{%
+    \mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+\end{verbatim}
+
+\section{Math operation types}
+Three new types of operations are defined by \lstinline`math`:
+
+\begin{center}\begin{tabular}{lccl}
+Style & \multicolumn{2}{c}{Example}    & Declaration \\ \hline
+Sum   & \lstinline`sum` & $\sum_j a_j$        & \lstinline`DeclareSumOp` \\
+Math  & \lstinline`sin` & $\sin \theta$        & \lstinline`DeclareMathOp` \\
+Limit & \lstinline`lim` & $\lim_{n \rightarrow \infty}a_n$ & \lstinline`DeclareMathLimOp`
+\end{tabular}\end{center}
+
+In each case, nearly all operations built into LaTeX are remapped. If you
+need one that is not or have defined your own operation, simply use the
+appropriate declaration verb from the right column.
+
+\subsection{Sum-style operations}
+Functions like the big-sigma sum and integrals take a bound as a left
+argument and the term to sum (integrate, etc.) as the right argument.
+The bound has length up to two: the first element is the lower bound and
+the second is the upper bound. It may also be omitted entirely.
+\begin{lstlisting}
+  (6%~*:pi) =~ (\_infty ,~ n=1) sum %*:n
+\end{lstlisting}
+\[\sum_{n=1}^{\infty} \frac{1}{n^2}=\frac{\pi^2}{6}\]
+\begin{lstlisting}
+  X = (alpha in A) bigcup U_ alpha
+\end{lstlisting}
+\[X=\bigcup_{\alpha \in A} U_{\alpha}\]
+\begin{lstlisting}
+  (int@:(*&dx) = +&C) ^x
+\end{lstlisting}
+\[\int e^{x} dx=e^{x}+C\]
+
+\subsection{Math operations}
+Operations like \lstinline`sin`, \lstinline`exp`, and so on are defined as verbs. For
+these functions, the argument is parenthesized only if it is sufficiently
+complicated.
+\begin{lstlisting}
+  list sin"0 (+: , ] , -:) theta
+\end{lstlisting}
+\[\sin (2 \theta),\sin \theta,\sin \left(\frac{\theta}{2}\right)\]
+\begin{lstlisting}
+  =`+/ dim"0 V ([ , ker@] , of~) T
+\end{lstlisting}
+\[\dim V=\dim (\ker T)+\dim (T(V))\]
+\begin{lstlisting}
+  (gcd = \+./) 42 98 126
+\end{lstlisting}
+\[\gcd (42,98,126)=14\]
+
+Note that \lstinline`log` is not defined---use \lstinline`^.` instead!
+
+\subsection{Limit-style operations}
+Limit operations are monadic or take a single left argument, which is
+placed as a subscript.
+\begin{lstlisting}
+  min ((-~^) st in&RR) x
+\end{lstlisting}
+\[\min \left\{\,e^{x}-x\,\middle|\,x \in \mathbb{R}\,\right\}\]
+\begin{lstlisting}
+  (n to _) lim | a %/@:\_ (,<:)n
+\end{lstlisting}
+\[\lim_{n \rightarrow \infty}\left|\frac{a_n}{a_{n-1}}\right|\]
+
+\section{Miscellaneous}
+The operations \lstinline`oplus` and \lstinline`otimes` are declared in \lstinline`math`:
+\begin{lstlisting}
+  b ((a otimes [.@oplus) = oplus&[.&(a&otimes)) c
+\end{lstlisting}
+\[a \otimes (b \oplus c)=(a \otimes b) \oplus (a \otimes c)\]
+
+\section{Sets}
+The \lstinline`math/sets` addon provides some standard set nouns as well as verbs
+for common ways to write sets.
+
+The following sets are predefined:
+\begin{center}
+  \begin{tabular}{lc}
+    \lstinline`NN` & $\mathbb{N}$ \\
+    \lstinline`ZZ` & $\mathbb{Z}$ \\
+    \lstinline`QQ` & $\mathbb{Q}$ \\
+    \lstinline`RR` & $\mathbb{R}$ \\
+    \lstinline`CC` & $\mathbb{C}$ \\
+    \lstinline`II` & $[0,1]$
+  \end{tabular}
+\end{center}
+
+The \lstinline`DeclareSet` verb is the declaration for a set, which is written in
+blackboard bold.
+\begin{lstlisting}
+  HH DeclareSet H
+  HH in~ list \1,i,j,k
+\end{lstlisting}
+\[1,i,j,k \in \mathbb{H}\]
+
+To place a list of elements in a set, use the \lstinline`set` verb. To invoke
+``set-builder notation,'' use \lstinline`st`. The left argument to \lstinline`st` is the
+variable and the right argument is the predicate.
+\begin{lstlisting}
+  set \(/:~ , */&:>/ (^ i.@>:)&.>/ __ q: 12)
+\end{lstlisting}
+\[\{1,2,3,4,6,12\}\]
+\begin{lstlisting}
+  (x in RR) st (*:x) < 2
+\end{lstlisting}
+\[\left\{\,x \in \mathbb{R}\,\middle|\,x^2<2\,\right\}\]
+
+The verbs \lstinline`subset`, \lstinline`supset`, \lstinline`in`, and \lstinline`setminus` are defined as
+math operations.
+\begin{lstlisting}
+  iff DeclareOp 'Longleftrightarrow'
+  A (subset iff supset~ iff \_varnothing =~ setminus) B
+\end{lstlisting}
+\[A \subset B \Longleftrightarrow B \supset A \Longleftrightarrow A \setminus B=\varnothing\]
+
+The infix operations \lstinline`and`, \lstinline`quot`, \lstinline`by`, and \lstinline`comma` are defined.
+\begin{lstlisting}
+  (x and y) in S
+\end{lstlisting}
+\[x,y \in S\]
+\begin{lstlisting}
+  (quot p&*) ZZ
+\end{lstlisting}
+\[\mathbb{Z}/p \mathbb{Z}\]
+\begin{lstlisting}
+  int (^x) by dx  NB. space with \,
+\end{lstlisting}
+\[\int e^{x}\,dx\]
+\begin{lstlisting}
+  (a=3) comma (b=5)  NB. space with \quad
+\end{lstlisting}
+\[a=3,\quad b=5\]
+
+\section{Functions}
+The following functions are defined by \lstinline`math/func`.
+
+The operations \lstinline`from` (as \lstinline`colon`), \lstinline`to` (as \lstinline`rightarrow`), and
+\lstinline`mapsto` are declared:
+\begin{lstlisting}
+  (f from RR to RR)  comma  x mapsto *:x
+\end{lstlisting}
+\[f \colon \mathbb{R} \rightarrow \mathbb{R},\quad x \mapsto x^2\]
+
+Function composition is \lstinline`o`.
+\begin{lstlisting}
+  ((f o g)&of = f of g&of) x
+\end{lstlisting}
+\[f \circ g(x)=f(g(x))\]
+
+The inverse is \lstinline`inv`, and you can apply a function's inverse with
+\lstinline`if` (that is, \lstinline`of` with the first character changed).
+The function \lstinline`res` gives the restriction of a function to a domain,
+using a vertical bar.
+\begin{lstlisting}
+  a (* * *&inv) b
+\end{lstlisting}
+\[a b a^{-1} b^{-1}\]
+\begin{lstlisting}
+  ([.f res A) if x
+\end{lstlisting}
+\[\left(f|_A\right)^{-1}(x)\]
+
+The verbs \lstinline`star` and \lstinline`prime` do the obvious:
+\begin{lstlisting}
+  (star H_1) of S^2
+\end{lstlisting}
+\[H_1^*\left(S^2\right)\]
+\begin{lstlisting}
+  (prime^:2 f) of x
+\end{lstlisting}
+\[f''(x)\]
+
+The conjunction \lstinline`u commutes v` gives \lstinline`u@:v = v&:u`.
+\begin{lstlisting}
+  *: commutes % x
+\end{lstlisting}
+\[\left(\frac{1}{x}\right)^2=\frac{1}{x^2}\]
+\begin{lstlisting}
+  z + commutes \\cdot w
+\end{lstlisting}
+\[\overline{z \cdot w}=\overline{z} \cdot \overline{w}\]
+\end{document}

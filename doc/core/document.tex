@@ -1,0 +1,103 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{../tutorial}
+
+
+
+\begin{document}
+Aside from the modifications to J's primitive verbs, most of the
+functionality of JtoLaTeX is kept in scripts located in the \lstinline`extra`
+folder. Through some trickery with \lstinline`Public_j_`, these may be accessed
+just like a normal addon (see, for instance, the \lstinline`require 'array'`
+statement at the top of this document's source). However, functions in the
+\lstinline`core` addon are loaded automatically.
+
+\section{Low-level verbs}
+These verbs should be avoided whenever possible. They deal with the string
+representation of a noun, not its actual structure. Using higher-level
+verbs instead means your code will adapt sensibly to different arguments;
+for instance parentheses will be resized with \lstinline`\left` and \lstinline`\right`
+when surrounding a tall expression.
+
+\lstinline`toString` converts a LaTeX noun to a string, and its inverse, \lstinline`toL`,
+converts it back. \lstinline`toStrings` converts each atom of its argument to a
+boxed string, and has no inverse.
+\begin{lstlisting}
+  (\\rightarrow |.&.toString)  =`+/ *: c,a,b
+\end{lstlisting}
+\[c^2=a^2+b^2 \rightarrow 2^b+2^a=2^c\]
+
+\lstinline`concat` combines the left and right arguments, with no intervening
+space.
+\begin{lstlisting}
+  \_var concat phi
+\end{lstlisting}
+\[\varphi\]
+
+\lstinline`infix` is an adverb that concatenates \lstinline`x` and \lstinline`y` with \lstinline`u` in
+the middle.
+\begin{lstlisting}
+  \_Long 'right'infix arrow
+\end{lstlisting}
+\[\Longrightarrow\]
+
+\section{Defining things}
+A few verbs are included to make the assignments at the beginning of your
+document a bit easier (and more LaTeX-like).
+
+\lstinline`is` takes a name on the left and a value on the right, assigns the
+given value to the name, and returns \lstinline`i.0 0`.
+
+\lstinline`declare` is quite a helpful adverb, and a strong candidate for the
+most complicated line of code I've ever written. Given a string \lstinline`u`
+which contains \lstinline`y`, \lstinline`u declare` will produce a verb---call it
+\lstinline`D`---which runs its right argument through this string as \lstinline`y` and
+assigns the result to the left argument. Each argument to \lstinline`D` must be
+either an array of boxes or a string, which will be turned into an array
+with (\lstinline`;:`). If the left argument is omitted, the right is used for both
+name and value.
+\begin{lstlisting}
+  DeclareFunc 'textbf'  NB. I'll get to this later...
+  DeclareBold =: 'textbf y' declare
+  DeclareBold 'one two'
+  'One Two' DeclareBold 'eleven twelve'
+  list one,two,One,Two
+\end{lstlisting}
+\[\textbf{one},\textbf{two},\textbf{eleven},\textbf{twelve}\]
+
+Three \lstinline`declare`-style functions are provided in \lstinline`core`. Each works
+like a particular \lstinline`\` construct from JtoLaTeX's syntax.
+\begin{itemize}
+  \item \lstinline`DeclareConst`: like \lstinline`\_const`
+  \item \lstinline`DeclareFunc`: like \lstinline`\func`
+  \item \lstinline`DeclareOp`: like \lstinline`\\op`
+\end{itemize}
+For instance, the \lstinline`DeclareFunc 'textbf'` call above makes \lstinline`'textbf'`
+into a function that applies with \lstinline`{}`.
+Additionally, \lstinline`DeclareInfix` declares as an infix operator using
+\lstinline`infix`.
+
+\section{Environments}
+The \lstinline`inenv` verb is a straightforward way to use LaTeX environments:
+\begin{lstlisting}
+  'verbatim' inenv ":i.3
+\end{lstlisting}
+\begin{verbatim}
+  0 1 2
+\end{verbatim}
+
+To include arguments, append a box to the left argument of \lstinline`inenv` which
+gives the string of arguments. You must include the brackets.
+\begin{lstlisting}
+  fig =: (\caption 'a variable.') concat~ mathdisp x
+  ('figure';'[ht]') inenv fig
+\end{lstlisting}
+\begin{figure}[ht]
+  \[x\]\caption{a variable.}
+\end{figure}
+
+
+The verbs \lstinline`mathinline` and \lstinline`mathdisp` place their arguments in inline
+and display math mode (with \lstinline`$$` and \lstinline`\[\]`), respectively.
+
+\end{document}

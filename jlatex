@@ -9,5 +9,5 @@ PATH =: ({.~ >:@i:&'/') name
 file =. 1!:1 <name
 texname =. '.tex',~ ({.~i:&'.') name
 texname (1!:2<)~ process_jdoc file
-2!:1 :: ] 'pdflatex ',texname
+2!:1 :: ] ^: ((<'nopdf')-.@e.ARGV) 'pdflatex ',texname
 exit ''
