@@ -20,19 +20,22 @@ where ~user is given by
 ```
 in J.
 
+If you want to install in a different location, you must change the line
+```J
+FILEPATH =: '~user/JtoLaTeX/'
+```
+at the top of both jlatex and jlatex.ijs to use the appropriate path.
+
 Documents are written in LaTeX, except that a section enclosed in an
-escape like `\L()` will be executed according to the verb `L_pjdoc_` in
-jdoc.ijs. In particular, `L` converts a J expression into an "equivalent"
-LaTeX expression, sending `'2+^~<:5'` to `'2+(5-1)^{5-1}'`, for example.
+escape like `\L()` (`L` could be any name) will be executed according to
+the verb `L_pjdoc_` in jdoc.ijs. In particular, `L` converts a J
+expression into an "equivalent" LaTeX expression, sending `'2+^~<:5'` to
+`'2+(5-1)^{5-1}'`, for example.
 
-This allows you to do many J things in LaTeX, like computations, tables,
-and plots.
+Addons (in the `extra/` folder) allow you to create matrices, tables,
+plots, and more cleanly from J.
 
-See doc/introduction for some (not very extensive) guidance and examples
-of JtoLaTeX code.
-
-Handling of built-in functions can be configured in opdata.ijs, and
-functionality can be added by writing a script in the extra folder.
-
-This version includes the filepath `'~user/JtoLaTeX/'` in the file jlatex,
-which must be changed if you want to install somewhere else.
+See doc/introduction/document.pdf for information about the built-in
+features of JtoLaTeX. core/document.pdf describes the additional
+functionality which is automatically loaded, and the other documentation
+provides information about available addons.
