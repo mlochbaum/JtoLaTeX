@@ -9,7 +9,7 @@ The script `jlatex` can be run on a document, and will compile it to a
 .tex document and then run pdflatex on that.
 
 To install,
-```shell
+```
 $ cd ~user/
 $ git clone git://github.com/mlochbaum/JtoLaTeX.git
 # ln -s JtoLaTeX/jlatex /usr/bin/jlatex
@@ -36,6 +36,6 @@ Addons (in the `extra/` folder) allow you to create matrices, tables,
 plots, and more cleanly from J.
 
 See doc/introduction/document.pdf for information about the built-in
-features of JtoLaTeX. core/document.pdf describes the additional
+features of JtoLaTeX. doc/core/document.pdf describes the additional
 functionality which is automatically loaded, and the other documentation
 provides information about available addons.
