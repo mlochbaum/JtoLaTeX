@@ -12,7 +12,7 @@ int i
 )
 getdottype =: '\dots' toL@, DTVAL { :: (''"_)~ DTKEY&i.
 
-mapdot =: (^:(-.@isdot@])) ("_ 0)
+mapdot =: (^:(-.@isdot@])) ("0)
 reducedot =: 1 :0
   d =. getdottype < 5!:5 <'u'
   [: u/ (=&dots)`(,:&d)}^:(d-.@-:dots)
