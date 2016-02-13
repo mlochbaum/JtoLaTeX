@@ -93,7 +93,7 @@ mmy =. mergeslash@:mergesparens ;:y
 mmy1 =. tofunc@:alias mmyp =. protectassign mmy
 if. err -.@-:&(-.&(LF,' ')) ;mmy1 do. err1 return. end.
 i =. i I.~ ([: +/\ +/@:~:&' '@>) mmy1
-i =. i I.~ +/\ aliaslen mmyp
+i =. i I.~ 0,+/\ aliaslen mmyp
 i =. (i{+/\0,+/@:~:&' '@> mmy) { ~.(i.@# + ' '&=) y
 (({.~ 5+i.&LF) err1) , i ({.,(4#' '),}.) y
 )
