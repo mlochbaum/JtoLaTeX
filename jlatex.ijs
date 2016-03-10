@@ -38,6 +38,8 @@ strinf =: [:<('-'#~<&0),'\infty'"_
 strcomp =: [: ('+' ; (;&< ,&'i'&.>))&>/ strnum@+.
 strrat =: ([:< ('-'#~<&0),[: (texa~>)/@|. '\frac';strnum@(2 x:|))`(strnum@{.@(2&x:))@.(=<.)
 tonode =: toL^:(-.@isnode)
+NB. Process name, with {} for long subscripts
+Lname =: [: <@< (({.,'{}'surround@:}.)^:(<<:@#)~ 1+i.&'_')^:(1='_'+/@:=])
 
 NB. Special casing for -
 ispm =. ((;:'+-')e.~func) *. 2=#@args
@@ -72,7 +74,7 @@ tofunc =: 3 :0&.>
   elseif. ({.y) e. NUM do. y
   elseif. '_'={:y do. '(','"0)',~to_on y
   elseif. yy e. OPS do. ('(',quote,'OP)'"_) y
-  elseif. do. tok@quote^:(e.&(;:'x y')@< +. _1=4!:0@<) y
+  elseif. do. ('(Lname ',,&')')@quote^:(e.&(;:'x y')@< +. _1=4!:0@<) y
   end.
 )
 
