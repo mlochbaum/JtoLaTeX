@@ -1,4 +1,5 @@
-FILEPATH =: '~user/JtoLaTeX/'
+NB. Directory containing this script
+FILEPATH =: ({.~ 1+i:&'/') >{:4!:3 ''
 
 NB. Utilities
 load 'strings'

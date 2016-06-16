@@ -24,7 +24,7 @@ If you want to install in a different location, you must change the line
 ```J
 FILEPATH =: '~user/JtoLaTeX/'
 ```
-at the top of both jlatex and jlatex.ijs to use the appropriate path.
+at the top of jlatex to use the appropriate path.
 
 Documents are written in LaTeX, except that a section enclosed in an
 escape like `\L()` (`L` could be any name) will be executed according to
